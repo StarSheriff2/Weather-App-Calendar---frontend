@@ -23,7 +23,7 @@ const login = async (email, password) => {
       },
     });
 
-  if (response.data.accessToken) {
+  if (response.data.auth_token) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }
 
