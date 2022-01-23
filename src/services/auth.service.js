@@ -4,13 +4,13 @@ import axios from 'axios';
 const API_URL = 'http://127.0.0.1:3001/';
 
 const register = ({
-  name, email, password, password_confirmation,
+  name, email, password, passwordConfirmation,
 }) => axios.post(`${API_URL}signup`, {
   user: {
     name,
     email,
     password,
-    password_confirmation,
+    password_confirmation: passwordConfirmation,
   },
 });
 
