@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:3001/';
+// const API_URL = 'http://127.0.0.1:3001/';
+const API_URL = 'http://0.0.0.0:3001/';
 
 const register = ({
   name, email, password, passwordConfirmation,

@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  BrowserRouter as Router, Switch, Route, Link,
+  HashRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +13,7 @@ import Profile from './components/Profile';
 
 import { logout } from './slices/auth';
 
-import EventBus from './common/EventBus';
+// import EventBus from './common/EventBus';
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -23,34 +23,28 @@ const App = () => {
     dispatch(logout());
   }, [dispatch]);
 
-  useEffect(() => {
-    EventBus.on('logout', () => {
-      logOut();
-    });
+  // useEffect(() => {
+  //   EventBus.on('logout', () => {
+  //     logOut();
+  //   });
 
-    return () => {
-      EventBus.remove('logout');
-    };
-  }, [logOut]);
+  //   return () => {
+  //     EventBus.remove('logout');
+  //   };
+  // }, [logOut]);
 
   return (
     <Router>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to="/" className="navbar-brand">
-            bezKoder
+            Weather App Calendar
           </Link>
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to="/home" className="nav-link">
-                Home
-              </Link>
-            </li>
-
             {currentUser && (
               <li className="nav-item">
-                <Link to="/user" className="nav-link">
-                  User
+                <Link to="/home" className="nav-link">
+                  Home
                 </Link>
               </li>
             )}
@@ -74,7 +68,7 @@ const App = () => {
 
         <div className="container mt-3">
           <Switch>
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             {/* <Route path="/user" component={BoardUser} /> */}
