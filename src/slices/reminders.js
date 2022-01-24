@@ -9,7 +9,6 @@ export const fetchReminders = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const response = await weatherAppCalendarApi.getReminders();
-      thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
       const message = (error.response
@@ -23,17 +22,29 @@ export const fetchReminders = createAsyncThunk(
   },
 );
 
-const initialState = { entities: [] };
+const initialState = {
+  status: 'idle',
+  entities: [],
+};
 
 const remindersSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: {
+    [fetchReminders.pending]: (state) => {
+      state.status = 'pending';
+    },
     [fetchReminders.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
       state.entities = action.payload;
+    },
+    [fetchReminders.rejected]: (state) => {
+      state.status = 'rejected';
+      state.entities = [];
     },
   },
 });
 
+export const remindersState = (state) => state.reminders;
 const { reducer } = remindersSlice;
 export default reducer;

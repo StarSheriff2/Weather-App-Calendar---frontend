@@ -10,6 +10,7 @@ import './App.css';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
+import Reminders from './components/Reminders';
 
 import { logout } from './slices/auth';
 
@@ -42,11 +43,18 @@ const App = () => {
           </Link>
           <div className="navbar-nav mr-auto">
             {currentUser && (
-              <li className="nav-item">
-                <Link to="/home" className="nav-link">
-                  Home
-                </Link>
-              </li>
+              <>
+                <li className="nav-item">
+                  <Link to="/home" className="nav-link">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/reminders" className="nav-link">
+                    Reminders
+                  </Link>
+                </li>
+              </>
             )}
           </div>
 
@@ -71,7 +79,7 @@ const App = () => {
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            {/* <Route path="/user" component={BoardUser} /> */}
+            <Route path="/reminders" component={Reminders} />
           </Switch>
         </div>
       </div>
