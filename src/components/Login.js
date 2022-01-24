@@ -96,13 +96,14 @@ const Login = ({ history }) => {
             </div>
           </Form>
         </Formik>
-
-        <p>Don&apos;t have an account?</p>
-        <p>
-          Sign up
-          <Link to="/register">here</Link>
-        </p>
       </div>
+
+      <p className="text-center mt-3">Don&apos;t have an account?</p>
+      <p className="text-center">
+        Sign up
+        {' '}
+        <Link to="/register">here</Link>
+      </p>
 
       {message && (
         <div className="form-group">
