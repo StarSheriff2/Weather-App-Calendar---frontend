@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
@@ -96,6 +96,12 @@ const Login = ({ history }) => {
             </div>
           </Form>
         </Formik>
+
+        <p>Don&apos;t have an account?</p>
+        <p>
+          Sign up
+          <Link to="/register">here</Link>
+        </p>
       </div>
 
       {message && (
