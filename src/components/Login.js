@@ -98,7 +98,7 @@ const Login = ({ history }) => {
         </Formik>
       </div>
 
-      <p className="text-center mt-3">Don&apos;t have an account?</p>
+      <p className="text-center">Don&apos;t have an account?</p>
       <p className="text-center">
         Sign up
         {' '}
