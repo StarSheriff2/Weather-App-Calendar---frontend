@@ -54,11 +54,11 @@ const Register = () => {
   });
 
   const handleRegister = (formValue) => {
-    const { username, email, password } = formValue;
+    const { name, email, password } = formValue;
 
     setSuccessful(false);
 
-    dispatch(register({ username, email, password }))
+    dispatch(register({ name, email, password }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -85,10 +85,10 @@ const Register = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <Field name="username" type="text" className="form-control" />
+                  <label htmlFor="name">Name</label>
+                  <Field name="name" type="text" className="form-control" />
                   <ErrorMessage
-                    name="username"
+                    name="name"
                     component="div"
                     className="alert alert-danger"
                   />
@@ -113,6 +113,20 @@ const Register = () => {
                   />
                   <ErrorMessage
                     name="password"
+                    component="div"
+                    className="alert alert-danger"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="passwordConfirmation">Password Confirmation</label>
+                  <Field
+                    name="passwordConfirmation"
+                    type="passwordConfirmation"
+                    className="form-control"
+                  />
+                  <ErrorMessage
+                    name="passwordConfirmation"
                     component="div"
                     className="alert alert-danger"
                   />
