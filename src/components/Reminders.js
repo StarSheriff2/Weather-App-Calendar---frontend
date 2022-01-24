@@ -14,7 +14,7 @@ const Reminders = () => {
     return <Redirect to="/" />;
   }
 
-  const { status, entities } = useSelector(remindersState);
+  const { status, entities: reminders } = useSelector(remindersState);
 
   const { message } = useSelector((state) => state.message);
 
@@ -36,8 +36,19 @@ const Reminders = () => {
     }
   }, [message]);
 
+  const remindersList = reminders.map((r) => (
+    <tr
+      className={(new Date(r.datetime) < new Date(Date.now())) ? 'd-none' : 'table-row'}
+      key={r.id}
+    >
+      <td>{r.description}</td>
+      <td>{r.city}</td>
+      <td>rainy</td>
+    </tr>
+  ));
+
   return (
-    <div className="container">
+    <div className="container px-1">
       <header className="jumbotron">
         <h3>
           Reminders
@@ -47,36 +58,13 @@ const Reminders = () => {
         <p>Loading Content</p>
       ))
         || (status === 'fulfilled' && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+          <div className="table-responsive-lg">
+            <table className="table table-hover table-sm">
+              <tbody>
+                {remindersList}
+              </tbody>
+            </table>
+          </div>
         ))}
     </div>
   );
