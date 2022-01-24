@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
@@ -140,6 +141,13 @@ const Register = () => {
           </Form>
         </Formik>
       </div>
+
+      <p className="text-center mt-3">Already have an account?</p>
+      <p className="text-center">
+        Sign in
+        {' '}
+        <Link to="/">here</Link>
+      </p>
 
       {message && (
         <div className="form-group">

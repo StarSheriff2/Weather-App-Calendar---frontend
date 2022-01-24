@@ -38,7 +38,7 @@ const App = () => {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to="/" className="navbar-brand">
-            Weather App Calendar
+            WAC
           </Link>
           <div className="navbar-nav mr-auto">
             {currentUser && (
