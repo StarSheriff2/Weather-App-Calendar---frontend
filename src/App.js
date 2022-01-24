@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   HashRouter as Router, Switch, Route, Link,
@@ -13,7 +13,7 @@ import Profile from './components/Profile';
 
 import { logout } from './slices/auth';
 
-// import EventBus from './common/EventBus';
+import EventBus from './common/EventBus';
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -23,15 +23,15 @@ const App = () => {
     dispatch(logout());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   EventBus.on('logout', () => {
-  //     logOut();
-  //   });
+  useEffect(() => {
+    EventBus.on('logout', () => {
+      logOut();
+    });
 
-  //   return () => {
-  //     EventBus.remove('logout');
-  //   };
-  // }, [logOut]);
+    return () => {
+      EventBus.remove('logout');
+    };
+  }, [logOut]);
 
   return (
     <Router>
