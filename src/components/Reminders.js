@@ -186,7 +186,7 @@ const Reminders = () => {
                                       <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}>{time}</td>
                                       <td>{description}</td>
                                       <td>{city}</td>
-                                      <td>coordinates</td>
+                                      <td>{coordinates}</td>
                                     </tr>
                                   );
                                 })}
