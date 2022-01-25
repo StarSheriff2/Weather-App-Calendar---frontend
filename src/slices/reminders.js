@@ -58,13 +58,13 @@ const remindersSlice = createSlice({
       const remindersArr = Object.keys(reminders).map((year) => (
         {
           months: Object.keys(reminders[year]).map((month) => ({
-            id: month,
+            id: parseInt(month, 10),
             dates: Object.keys(reminders[year][month]).map((date) => ({
               id: date,
               reminders: reminders[year][month][date],
             })),
           })),
-          id: year,
+          id: parseInt(year, 10),
         }
       ));
 
