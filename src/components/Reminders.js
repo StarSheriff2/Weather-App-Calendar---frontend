@@ -56,9 +56,6 @@ const Reminders = () => {
 
   // const remindersList = remindersContent;
 
-
-  console.log('reminders: ', reminders)
-
   // const remindersList = reminders.map((el) => (
   //   <li >
   //     <p>Hello</p>
@@ -77,7 +74,7 @@ const Reminders = () => {
   //   </li>
   // ));
   // {
-    // currentReminder: new Date().toISOString().split('T')[0],
+  // currentReminder: new Date().toISOString().split('T')[0],
 
   // return (
 
@@ -136,49 +133,52 @@ const Reminders = () => {
         <p>Loading Content</p>
       ))
         || (status === 'fulfilled' && (
-          // <div className="table-responsive-lg">
-          //   <table className="table table-hover table-sm">
-          //     <tbody>
-          //       {remindersList.generateReminders()}
-          //     </tbody>
-          //   </table>
-          // </div>
-          // { remindersList }
           reminders.map((year) => {
             const { id, months } = year;
             return (
-            <ul key={id}>
-              <p>{id}</p>
-
+              <ul key={id}>
+                <p>{id}</p>
 
                 {months.map((month) => {
                   const { id, dates } = month;
+
                   return (
                     <ul key={id}>
                       <p>{id}</p>
                       {dates.map((date) => {
                         const { id, reminders } = date;
+
                         return (
-                          <ul key={id}>
-                            <p>{id}</p>
-                            {reminders.map((reminder) => {
-                              const { id, description, city, date, time, location_coordinates: coordinates} = reminder;
-                              return (
-                                <li key={id}><span>{description}</span> <span>{city}</span> <span>{date}</span></li>
+                          <div key={id} className="table-responsive-lg">
+                            <table className="table table-hover table-sm">
+                              <caption>{id}</caption>
+                              <tbody>
+                                {reminders.map((reminder) => {
+                                  const {
+                                    id, description, city,
+                                    time, location_coordinates: coordinates,
+                                  } = reminder;
 
-                              )
-                            })}
-
-                          </ul>
-                        )
+                                  return (
+                                    <tr key={id}>
+                                      <td>{time}</td>
+                                      <td>{description}</td>
+                                      <td>{city}</td>
+                                      <td>{coordinates}</td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
                       })}
                     </ul>
-                  )
+                  );
                 })}
-
-            </ul>
-          )})
-          // <div>hi</div>
+              </ul>
+            );
+          })
         ))}
     </div>
   );
