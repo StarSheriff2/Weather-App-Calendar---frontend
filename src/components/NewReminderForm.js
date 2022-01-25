@@ -1,15 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
 
 import { clearMessage } from '../slices/message';
+import { newReminder } from '../slices/reminders';
 
 const NewReminderForm = () => {
-  const [successful, setSuccessful] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
@@ -19,83 +20,123 @@ const NewReminderForm = () => {
   }, [dispatch]);
 
   const initialValues = {
-    name: '',
-    email: '',
-    password: '',
-    passwordConfirmation: '',
+    description: '',
+    date: '',
+    time: '',
+    city: '',
+    locationCoordinates: '',
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    description: Yup.string()
       .test(
         'len',
-        'The name must be between 3 and 35 characters.',
+        'The description must be between 3 and 30 characters.',
         (val) => val
           && val.toString().length >= 3
-          && val.toString().length <= 20,
+          && val.toString().length <= 30,
       )
       .required('This field is required!'),
-    email: Yup.string()
-      .email('This is not a valid email.')
+    date: Yup.date()
       .required('This field is required!'),
-    password: Yup.string()
-      .test(
-        'len',
-        'The password must be between 6 and 40 characters.',
-        (val) => val
-          && val.toString().length >= 6
-          && val.toString().length <= 40,
-      )
+    time: Yup.string()
       .required('This field is required!'),
-    passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    city: Yup.string()
+      .required('This field is required!'),
+    locationCoordinates: Yup.string()
       .required('This field is required!'),
   });
 
-  const handleRegister = (formValue) => {
-    const { name, email, password } = formValue;
+  const handleSubmit = (formValue, { resetForm }) => {
+    const {
+      description, date, time, city, locationCoordinates,
+    } = formValue;
+    const datetime = `${date} ${time}:00`;
 
-    setSuccessful(false);
+    setLoading(true);
 
-    dispatch(register({ name, email, password }))
+    dispatch(newReminder({
+      description, datetime, city, locationCoordinates,
+    }))
       .unwrap()
       .then(() => {
-        setSuccessful(true);
+        resetForm();
+        setLoading(false);
       })
       .catch(() => {
-        setSuccessful(false);
+        setLoading(false);
       });
   };
 
   return (
-    <div className="col-md-12 login-form">
+    <div className="col-md-12 signup-form">
       <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleLogin}
+          onSubmit={handleSubmit}
         >
           <Form>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <Field name="email" id="email" type="text" className="form-control" />
+              <label htmlFor="description">Description</label>
+              <Field name="description" type="text" className="form-control" />
               <ErrorMessage
-                name="email"
+                name="description"
                 component="div"
                 className="alert alert-danger"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Field name="password" id="password" type="password" className="form-control" />
+              <label htmlFor="date">
+                Date
+              </label>
+              <Field name="date" type="date" min={new Date().toLocaleDateString()} className="form-control" />
+
               <ErrorMessage
-                name="password"
+                name="date"
+                component="div"
+                className="alert alert-danger"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="time">Time</label>
+              <Field
+                name="time"
+                type="time"
+                className="form-control"
+              />
+              <ErrorMessage
+                name="time"
+                component="div"
+                className="alert alert-danger"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="city">City</label>
+              <Field
+                name="city"
+                type="city"
+                className="form-control"
+              />
+              <ErrorMessage
+                name="city"
+                component="div"
+                className="alert alert-danger"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="locationCoordinates">Location Coordinates</label>
+              <Field
+                name="locationCoordinates"
+                type="locationCoordinates"
+                className="form-control"
+              />
+              <ErrorMessage
+                name="locationCoordinates"
                 component="div"
                 className="alert alert-danger"
               />
@@ -104,21 +145,14 @@ const NewReminderForm = () => {
             <div className="form-group">
               <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
                 {loading && (
-                  <span className="spinner-border spinner-border-sm" />
+                <span className="spinner-border spinner-border-sm" />
                 )}
-                <span>Login</span>
+                <span>Add</span>
               </button>
             </div>
           </Form>
         </Formik>
       </div>
-
-      <p className="text-center">Don&apos;t have an account?</p>
-      <p className="text-center">
-        Sign up
-        {' '}
-        <Link to="/register">here</Link>
-      </p>
 
       {message && (
         <div className="form-group">
@@ -129,10 +163,6 @@ const NewReminderForm = () => {
       )}
     </div>
   );
-};
-
-NewReminderForm.propTypes = {
-
 };
 
 export default NewReminderForm;

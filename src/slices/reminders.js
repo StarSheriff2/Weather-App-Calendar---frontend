@@ -22,9 +22,29 @@ export const fetchReminders = createAsyncThunk(
   },
 );
 
+export const newReminder = createAsyncThunk(
+  'reminders/newReminder',
+  async (params, thunkAPI) => {
+    try {
+      const response = await weatherAppCalendarApi.createReminder(params);
+      thunkAPI.dispatch(fetchReminders());
+      return response.data;
+    } catch (error) {
+      const message = (error.response
+          && error.response.data
+          && error.response.data.message)
+        || error.message
+        || error.toString();
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue();
+    }
+  },
+);
+
 const initialState = {
   status: 'idle',
   entities: [],
+  newReminderStatus: 'idle',
 };
 
 const remindersSlice = createSlice({
@@ -74,6 +94,15 @@ const remindersSlice = createSlice({
     [fetchReminders.rejected]: (state) => {
       state.status = 'rejected';
       state.entities = [];
+    },
+    [newReminder.pending]: (state) => {
+      state.newReminderStatus = 'pending';
+    },
+    [newReminder.fulfilled]: (state) => {
+      state.newReminderStatus = 'fulfilled';
+    },
+    [newReminder.fulfilled]: (state) => {
+      state.newReminderStatus = 'rejected';
     },
   },
 });

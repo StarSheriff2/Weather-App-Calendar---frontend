@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import NewReminderForm from './NewReminderForm';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
@@ -45,6 +46,7 @@ const Reminders = () => {
           Reminders
         </h3>
       </header>
+      <NewReminderForm />
       {(status === 'pending' && (
         <p>Loading Content</p>
       ))

@@ -31,7 +31,7 @@ const Register = () => {
     name: Yup.string()
       .test(
         'len',
-        'The name must be between 3 and 35 characters.',
+        'The name must be between 3 and 20 characters.',
         (val) => val
           && val.toString().length >= 3
           && val.toString().length <= 20,
