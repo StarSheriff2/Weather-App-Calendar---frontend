@@ -181,9 +181,9 @@ const Reminders = () => {
                                   return (
                                     <tr
                                       key={id}
-                                      className={(diffMins <= 20 && diffMins >= 0) ? 'table-primary' : 't-row'}
+                                      className={(diffMins <= 20 && diffMins >= 0) ? 'active-reminder' : 'table-row'}
                                     >
-                                      <td>{time}</td>
+                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}>{time}</td>
                                       <td>{description}</td>
                                       <td>{city}</td>
                                       <td>{coordinates}</td>
