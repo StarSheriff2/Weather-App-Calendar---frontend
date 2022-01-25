@@ -36,3 +36,30 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.active-reminder {
+  background-color: #684e91;
+  color: white;
+}
+
+.table-hover tbody tr.active-reminder:hover {
+  background-color: #684e91 !important;
+  color: white !important;
+}
+
+.glow {
+  color: white;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #6ca80c, 0 0 40px #6ca80c, 0 0 50px #6ca80c, 0 0 60px #6ca80c, 0 0 70px #6ca80c;
+  }
+
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #8ee600, 0 0 40px #8ee600, 0 0 50px #8ee600, 0 0 60px #8ee600, 0 0 70px #8ee600, 0 0 80px #8ee600;
+  }
+}

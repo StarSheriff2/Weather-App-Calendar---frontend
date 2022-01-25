@@ -2,10 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import authReducer from './slices/auth';
 import messageReducer from './slices/message';
+import remindersReducer from './slices/reminders';
 
 const appReducer = combineReducers({
   auth: authReducer,
   message: messageReducer,
+  reminders: remindersReducer,
 });
 
 const rootReducer = (state, action) => {

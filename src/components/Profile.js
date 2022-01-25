@@ -6,7 +6,7 @@ const Profile = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
   if (!currentUser) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   return (
