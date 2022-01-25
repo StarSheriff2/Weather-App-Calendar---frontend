@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
 import EventBus from '../common/EventBus';
+import monthNames from '../common/months';
 
 const Reminders = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -19,6 +20,8 @@ const Reminders = () => {
   const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
+
+  const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
 
   useEffect(() => {
     dispatch(clearMessage());
@@ -137,21 +140,22 @@ const Reminders = () => {
             const { id, months } = year;
             return (
               <ul key={id}>
-                <p>{id}</p>
+                <p className="display-4">{id}</p>
 
                 {months.map((month) => {
                   const { id, dates } = month;
+                  // const monthName = months[id - 1].to_s
 
                   return (
                     <ul key={id}>
-                      <p>{id}</p>
+                      <h4><strong>{monthNames[id - 1]}</strong></h4>
                       {dates.map((date) => {
                         const { id, reminders } = date;
 
                         return (
                           <div key={id} className="table-responsive-lg">
                             <table className="table table-hover table-sm">
-                              <caption>{id}</caption>
+                              <caption>{new Date(id).toLocaleDateString('en-US', dateOptions)}</caption>
                               <tbody>
                                 {reminders.map((reminder) => {
                                   const {
