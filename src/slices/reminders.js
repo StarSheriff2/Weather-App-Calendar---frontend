@@ -35,8 +35,41 @@ const remindersSlice = createSlice({
       state.status = 'pending';
     },
     [fetchReminders.fulfilled]: (state, action) => {
+      const reminders = {};
+
+      action.payload.forEach((r) => {
+        const year = parseInt(r.date.slice(0, 4), 10);
+        const month = parseInt(r.date.slice(5, 7), 10);
+
+        if (!(year in reminders)) {
+          reminders[year] = {};
+          reminders[year][month] = {};
+          reminders[year][month][r.date] = [r];
+        } else if (!(month in reminders[year])) {
+          reminders[year][month] = {};
+          reminders[year][month][r.date] = [r];
+        } else if (!(r.date in reminders[year][month])) {
+          reminders[year][month][r.date] = [r];
+        } else {
+          reminders[year][month][r.date].push(r);
+        }
+      });
+
+      const remindersArr = Object.keys(reminders).map((year) => (
+        {
+          months: Object.keys(reminders[year]).map((month) => ({
+            id: month,
+            dates: Object.keys(reminders[year][month]).map((date) => ({
+              id: date,
+              reminders: reminders[year][month][date],
+            })),
+          })),
+          id: year,
+        }
+      ));
+
       state.status = 'fulfilled';
-      state.entities = action.payload;
+      state.entities = remindersArr;
     },
     [fetchReminders.rejected]: (state) => {
       state.status = 'rejected';

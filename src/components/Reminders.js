@@ -36,16 +36,94 @@ const Reminders = () => {
     }
   }, [message]);
 
-  const remindersList = reminders.map((r) => (
-    <tr
-      className={(new Date(r.datetime) < new Date(Date.now())) ? 'd-none' : 'table-row'}
-      key={r.id}
-    >
-      <td>{r.description}</td>
-      <td>{r.city}</td>
-      <td>rainy</td>
-    </tr>
-  ));
+  // const remindersContent = Object.keys(reminders).map((year) => (
+  //   <li key={year}>
+  //     <p>{year}</p>
+  //     {Object.keys(year).map((month) => (
+  //       <li key={month}>
+  //         <p>{month}</p>
+  //         {Object.keys(month).map((date) => (
+  //           <li key={date}>
+  //             <p>{date}</p>
+
+  //           </li>
+  //         ))}
+  //       </li>
+  //     ))}
+  //   </li>
+  //   )
+  // );
+
+  // const remindersList = remindersContent;
+
+
+  console.log('reminders: ', reminders)
+
+  // const remindersList = reminders.map((el) => (
+  //   <li >
+  //     <p>Hello</p>
+  //     {/* <p>{Object.keys(arr)[i]}</p> */}
+  //     {/* {Object.keys(reminders[year]).map((month) => (
+  //       <li key={month}>
+  //         <p>{month}</p>
+  //         {Object.keys(reminders[year][month]).map((date) => (
+  //           <li key={date}>
+  //             <p>{date}</p>
+  //               <p>HI!</p>
+  //           </li>
+  //         ))}
+  //       </li>
+  //     ))} */}
+  //   </li>
+  // ));
+  // {
+    // currentReminder: new Date().toISOString().split('T')[0],
+
+  // return (
+
+  //       <div className="table-responsive-lg">
+  //         <table className="table table-hover table-sm">
+  //           <tbody>
+  //             <tr key={r.id}>
+  //               <td>Today</td>
+  //             </tr>
+  //             <tr
+  //               className={(isSameDate === 'older') ? 'd-none' : 'table-row'}
+  //               key={r.id}
+  //             >
+  //               <td>{r.description}</td>
+  //               <td>{r.city}</td>
+  //               <td>rainy</td>
+  //             </tr>
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //     // <>
+  //     //   <tr className={(isSameDate === 'older') ? 'd-none' : 'd-row'} key={r.id}>
+  //     //     <td>Today</td>
+  //     //   </tr>
+  //     //   <tr
+  //     //     className={(isSameDate === 'older') ? 'd-none' : 'table-row'}
+  //     //     key={r.id}
+  //     //   >
+  //     //     <td>{r.description}</td>
+  //     //     <td>{r.city}</td>
+  //     //     <td>rainy</td>
+  //     //   </tr>
+  //     // </>
+  //   )
+
+  // };
+  // reminders.map((r) => (
+  //   <tr
+  //     className={(new Date(r.datetime) < new Date(Date.now())) ? 'd-none' : 'table-row'}
+  //     key={r.id}
+  //   >
+  //     <td>{r.description}</td>
+  //     <td>{r.city}</td>
+  //     <td>rainy</td>
+  //   </tr>
+  // ));
 
   return (
     <div className="container px-1">
@@ -58,13 +136,49 @@ const Reminders = () => {
         <p>Loading Content</p>
       ))
         || (status === 'fulfilled' && (
-          <div className="table-responsive-lg">
-            <table className="table table-hover table-sm">
-              <tbody>
-                {remindersList}
-              </tbody>
-            </table>
-          </div>
+          // <div className="table-responsive-lg">
+          //   <table className="table table-hover table-sm">
+          //     <tbody>
+          //       {remindersList.generateReminders()}
+          //     </tbody>
+          //   </table>
+          // </div>
+          // { remindersList }
+          reminders.map((year) => {
+            const { id, months } = year;
+            return (
+            <ul key={id}>
+              <p>{id}</p>
+
+
+                {months.map((month) => {
+                  const { id, dates } = month;
+                  return (
+                    <ul key={id}>
+                      <p>{id}</p>
+                      {dates.map((date) => {
+                        const { id, reminders } = date;
+                        return (
+                          <ul key={id}>
+                            <p>{id}</p>
+                            {reminders.map((reminder) => {
+                              const { id, description, city, date, time, location_coordinates: coordinates} = reminder;
+                              return (
+                                <li key={id}><span>{description}</span> <span>{city}</span> <span>{date}</span></li>
+
+                              )
+                            })}
+
+                          </ul>
+                        )
+                      })}
+                    </ul>
+                  )
+                })}
+
+            </ul>
+          )})
+          // <div>hi</div>
         ))}
     </div>
   );
