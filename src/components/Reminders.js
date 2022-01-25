@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import NewReminderForm from './NewReminderForm';
+import NewReminderFormModal from './NewReminderFormModal';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
@@ -41,12 +41,13 @@ const Reminders = () => {
 
   return (
     <div className="container px-1">
-      <header className="jumbotron">
+      <header className="jumbotron d-flex flex-row justify-content-between align-items-center">
         <h3>
           Reminders
         </h3>
+        <NewReminderFormModal />
       </header>
-      <NewReminderForm />
+
       {(status === 'pending' && (
         <p>Loading Content</p>
       ))
