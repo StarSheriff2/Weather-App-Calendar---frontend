@@ -83,7 +83,6 @@ const NewReminderFormModal = () => {
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Body>
-          {/* <div className="col-md-12 signup-form"> */}
           <div className="new-reminder-form card card-container">
             <Formik
               initialValues={initialValues}
@@ -168,7 +167,6 @@ const NewReminderFormModal = () => {
               </div>
             </div>
           )}
-          {/* </div> */}
         </Modal.Body>
 
       </Modal>
