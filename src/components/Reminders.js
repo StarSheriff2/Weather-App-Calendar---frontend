@@ -5,7 +5,6 @@ import NewReminderFormModal from './NewReminderFormModal';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
-import EventBus from '../common/EventBus';
 import monthNames from '../common/months';
 
 const Reminders = () => {
@@ -16,8 +15,6 @@ const Reminders = () => {
   }
 
   const { status, entities: reminders } = useSelector(remindersState);
-
-  const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
@@ -32,12 +29,6 @@ const Reminders = () => {
       dispatch(fetchReminders());
     }
   }, []);
-
-  useEffect(() => {
-    if (message === 'Sorry, your token has expired. Please login to continue.') {
-      EventBus.dispatch('logout');
-    }
-  }, [message]);
 
   return (
     <div className="container px-1">

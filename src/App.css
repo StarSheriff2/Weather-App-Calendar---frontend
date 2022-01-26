@@ -23,6 +23,11 @@ label {
   display: inline-block;
 }
 
+.fa-bars {
+  font-size: 1.6em;
+  color: #565656;
+}
+
 .card {
   background-color: var(--light-gray);
   padding: 1.2rem 1.6rem 1.9rem;

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   HashRouter as Router, Switch, Route, Link,
@@ -14,28 +14,20 @@ import Reminders from './components/Reminders';
 
 import { logout } from './slices/auth';
 
-import EventBus from './common/EventBus';
+import history from './helpers/history';
+
+import AuthVerify from './common/AuthVerify';
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const logOut = useCallback(() => {
+  const logOut = () => {
     dispatch(logout());
-  }, [dispatch]);
-
-  useEffect(() => {
-    EventBus.on('logout', () => {
-      logOut();
-    });
-
-    return () => {
-      EventBus.remove('logout');
-    };
-  }, [logOut]);
+  };
 
   return (
-    <Router>
+    <Router history={history}>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to="/" className="navbar-brand">
@@ -59,18 +51,45 @@ const App = () => {
           </div>
 
           {currentUser && (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to="/profile" className="nav-link">
-                  {currentUser.name}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
-                </a>
-              </li>
+            // <div className="dropdown d-md-none">
+            //   <button className="nav-button-mobile mx-0 px-1 py-3 my-2 bg-transparent border-0" type="button" id="dropdownMenu"
+            //     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="px-2 fas fa-bars"></i></button>
+            //   <div className="dropdown-menu" aria-labelledby="dropdownMenu">
+            //   <li className="nav-item">
+            //      <Link to="/profile" className="nav-link">
+            //        {currentUser.name}
+            //      </Link>
+            //    </li>
+            //    <li className="nav-item">
+            //      <a href="/login" className="nav-link" onClick={logOut}>
+            //        LogOut
+            //      </a>
+            //    </li>
+            //   </div>
+            // </div>
+            <div className="dropdown">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="fas fa-bars" />
+              </button>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {/* <a className="dropdown-item" href="#">Action</a>
+                <a className="dropdown-item" href="#">Another action</a>
+                <a className="dropdown-item" href="#">Something else here</a> */}
+              </div>
             </div>
+
+          // <div className="navbar-nav ml-auto">
+          //   <li className="nav-item">
+          //     <Link to="/profile" className="nav-link">
+          //       {currentUser.name}
+          //     </Link>
+          //   </li>
+          //   <li className="nav-item">
+          //     <a href="/login" className="nav-link" onClick={logOut}>
+          //       LogOut
+          //     </a>
+          //   </li>
+          // </div>
           )}
         </nav>
 
@@ -82,6 +101,8 @@ const App = () => {
             <Route path="/reminders" component={Reminders} />
           </Switch>
         </div>
+
+        <AuthVerify logOut={logOut} />
       </div>
     </Router>
   );

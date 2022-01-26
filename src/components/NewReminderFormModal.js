@@ -48,8 +48,8 @@ const NewReminderFormModal = () => {
       .required('This field is required!'),
     time: Yup.string()
       .required('This field is required!'),
-    // city: Yup.string()
-    //   .required('This field is required!'),
+    city: Yup.string()
+      .required('This field is required!'),
     locationCoordinates: Yup.string()
       .required('This field is required!'),
   });
@@ -130,23 +130,16 @@ const NewReminderFormModal = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="city">City</label>
-                  {/* <Field
-                    name="city"
-                    type="text"
-                    className="form-control"
-                    placeholder="Type city..."
-                  /> */}
                   <Field
                     name="city"
                     component={GoogleMapsApiAutocomplete}
                     placeholder="Search location"
                   />
-                  {/* <GoogleMapsApiAutocomplete /> */}
-                  {/* <ErrorMessage
+                  <ErrorMessage
                     name="city"
                     component="div"
                     className="alert alert-danger"
-                  /> */}
+                  />
                 </div>
                 <div className="form-group" hidden>
                   <label htmlFor="locationCoordinates">Location Coordinates</label>
