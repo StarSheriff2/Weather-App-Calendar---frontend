@@ -67,10 +67,10 @@ const App = () => {
           // </div>
 
           <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button className="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i className="fas fa-bars" />
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
               {/* <a className="dropdown-item" href="#">Action</a>
               <a className="dropdown-item" href="#">Another action</a>
               <a className="dropdown-item" href="#">Something else here</a> */}
@@ -104,7 +104,7 @@ const App = () => {
 
         <div className="container mt-3 px-1">
           <Switch>
-            <Route exact path="/" component={Login} />
+            <Route exact path={['/', '/home']} component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/reminders" component={Reminders} />
