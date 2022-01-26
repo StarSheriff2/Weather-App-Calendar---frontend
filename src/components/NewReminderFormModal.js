@@ -7,6 +7,7 @@ import {
   Formik, Field, Form, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
+import GoogleMapsApiAutocomplete from './GoogleMapsApiAutocomplete';
 
 import { clearMessage } from '../slices/message';
 import { newReminder } from '../slices/reminders';
@@ -28,7 +29,7 @@ const NewReminderFormModal = () => {
   const initialValues = {
     description: '',
     date: '',
-    time: '',
+    time: `${new Date().toString().slice(16, 21)}`,
     city: '',
     locationCoordinates: '',
   };
@@ -47,8 +48,8 @@ const NewReminderFormModal = () => {
       .required('This field is required!'),
     time: Yup.string()
       .required('This field is required!'),
-    city: Yup.string()
-      .required('This field is required!'),
+    // city: Yup.string()
+    //   .required('This field is required!'),
     locationCoordinates: Yup.string()
       .required('This field is required!'),
   });
@@ -92,7 +93,11 @@ const NewReminderFormModal = () => {
               <Form>
                 <div className="form-group">
                   <label htmlFor="description">Description</label>
-                  <Field name="description" type="text" className="form-control" />
+                  <Field
+                    name="description"
+                    type="text"
+                    className="form-control"
+                  />
                   <ErrorMessage
                     name="description"
                     component="div"
@@ -125,18 +130,25 @@ const NewReminderFormModal = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="city">City</label>
+                  {/* <Field
+                    name="city"
+                    type="text"
+                    className="form-control"
+                    placeholder="Type city..."
+                  /> */}
                   <Field
                     name="city"
-                    type="city"
-                    className="form-control"
+                    component={GoogleMapsApiAutocomplete}
+                    placeholder="Search location"
                   />
-                  <ErrorMessage
+                  {/* <GoogleMapsApiAutocomplete /> */}
+                  {/* <ErrorMessage
                     name="city"
                     component="div"
                     className="alert alert-danger"
-                  />
+                  /> */}
                 </div>
-                <div className="form-group">
+                <div className="form-group" hidden>
                   <label htmlFor="locationCoordinates">Location Coordinates</label>
                   <Field
                     name="locationCoordinates"
