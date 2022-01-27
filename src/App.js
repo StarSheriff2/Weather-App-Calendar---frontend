@@ -49,62 +49,25 @@ const App = () => {
           </div>
 
           {currentUser && (
-          // <div className="dropdown d-md-none">
-          //   <button className="nav-button-mobile mx-0 px-1 py-3 my-2 bg-transparent border-0" type="button" id="dropdownMenu"
-          //     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="px-2 fas fa-bars"></i></button>
-          //   <div className="dropdown-menu" aria-labelledby="dropdownMenu">
-          //   <li className="nav-item">
-          //      <Link to="/profile" className="nav-link">
-          //        {currentUser.name}
-          //      </Link>
-          //    </li>
-          //    <li className="nav-item">
-          //      <a href="/login" className="nav-link" onClick={logOut}>
-          //        LogOut
-          //      </a>
-          //    </li>
-          //   </div>
-          // </div>
-
-          <div className="dropdown">
-            <button className="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i className="fas fa-bars" />
-            </button>
-            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-              {/* <a className="dropdown-item" href="#">Action</a>
-              <a className="dropdown-item" href="#">Another action</a>
-              <a className="dropdown-item" href="#">Something else here</a> */}
-              <li className="nav-item dropdown-item">
-                <Link to="/profile" className="nav-link">
+            <div className="dropdown">
+              <button className="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="fas fa-bars" />
+              </button>
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <Link to="/profile" className="nav-link dropdown-item">
                   {currentUser.name}
                 </Link>
-              </li>
-              <li className="nav-item dropdown-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href="/login" className="nav-link dropdown-item" onClick={logOut}>
                   LogOut
                 </a>
-              </li>
+              </div>
             </div>
-          </div>
-
-          // <div className="navbar-nav ml-auto">
-          // <li className="nav-item">
-          //   <Link to="/profile" className="nav-link">
-          //     {currentUser.name}
-          //   </Link>
-          // </li>
-          // <li className="nav-item">
-          //   <a href="/login" className="nav-link" onClick={logOut}>
-          //     LogOut
-          //   </a>
-          // </li>
-          // </div>
           )}
         </nav>
 
         <div className="container mt-3 px-1">
           <Switch>
-            <Route exact path={['/', '/home']} component={Login} />
+            <Route exact path={['/', '/login']} component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/reminders" component={Reminders} />
