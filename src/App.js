@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  HashRouter as Router, Switch, Route, Link,
+  BrowserRouter as Router, Switch, Route, Link,
 } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,25 +14,15 @@ import Reminders from './components/Reminders';
 
 import { logout } from './slices/auth';
 
-import EventBus from './common/EventBus';
+import AuthVerify from './common/AuthVerify';
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const logOut = useCallback(() => {
+  const logOut = () => {
     dispatch(logout());
-  }, [dispatch]);
-
-  useEffect(() => {
-    EventBus.on('logout', () => {
-      logOut();
-    });
-
-    return () => {
-      EventBus.remove('logout');
-    };
-  }, [logOut]);
+  };
 
   return (
     <Router>
@@ -59,29 +49,32 @@ const App = () => {
           </div>
 
           {currentUser && (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to="/profile" className="nav-link">
+            <div className="dropdown">
+              <button className="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="fas fa-bars" />
+              </button>
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <Link to="/profile" className="nav-link dropdown-item">
                   {currentUser.name}
                 </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href="/login" className="nav-link dropdown-item" onClick={logOut}>
                   LogOut
                 </a>
-              </li>
+              </div>
             </div>
           )}
         </nav>
 
         <div className="container mt-3 px-1">
           <Switch>
-            <Route exact path="/" component={Login} />
+            <Route exact path={['/', '/login']} component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/reminders" component={Reminders} />
           </Switch>
         </div>
+
+        <AuthVerify logOut={logOut} />
       </div>
     </Router>
   );
