@@ -101,7 +101,7 @@ const remindersSlice = createSlice({
     [newReminder.fulfilled]: (state) => {
       state.newReminderStatus = 'fulfilled';
     },
-    [newReminder.fulfilled]: (state) => {
+    [newReminder.rejected]: (state) => {
       state.newReminderStatus = 'rejected';
     },
   },

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NewReminderFormModal from './NewReminderFormModal';
@@ -11,9 +11,13 @@ import monthNames from '../common/months';
 const Reminders = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
+  const [weatherData, setWeatherData] = useState(null);
+
   if (!currentUser) {
     return <Redirect to="/" />;
   }
+
+  const { message } = useSelector((state) => state.message);
 
   const { status, entities: reminders } = useSelector(remindersState);
 
@@ -39,6 +43,12 @@ const Reminders = () => {
         </h3>
         <NewReminderFormModal />
       </header>
+
+      {message && (
+        <div className="alert alert-info" role="alert">
+          {message}
+        </div>
+      )}
 
       {(status === 'pending' && (
         <p>Loading Content</p>
@@ -91,13 +101,15 @@ const Reminders = () => {
                                       key={id}
                                       className={(diffMins <= 20 && diffMins >= 0) ? 'active-reminder' : 'table-row'}
                                     >
-                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}>{time}</td>
+                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}><small>{time}</small></td>
                                       <td>{description}</td>
                                       <td>{city.split(', ')[0]}</td>
                                       <td>
                                         <WeatherForecast
                                           coordinates={coordinates}
-                                          reminderTime={reminderTime}
+                                          date={date}
+                                          weatherData={weatherData}
+                                          setWeatherData={setWeatherData}
                                         />
                                       </td>
                                     </tr>
