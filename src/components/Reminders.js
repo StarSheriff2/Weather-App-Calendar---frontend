@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NewReminderFormModal from './NewReminderFormModal';
+import WeatherForecast from './WeatherForecast';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
@@ -80,9 +81,9 @@ const Reminders = () => {
                                   } = reminder;
 
                                   // Compute difference in min between current t and reminder t
-                                  const d2 = new Date();
-                                  const d1 = new Date(`${date}T${time}:00-06:00`);
-                                  const diffMs = +d2 - +d1;
+                                  const timeNow = new Date();
+                                  const reminderTime = new Date(`${date}T${time}:00-06:00`);
+                                  const diffMs = +timeNow - +reminderTime;
                                   const diffMins = Math.floor((diffMs / 1000) / 60);
 
                                   return (
@@ -93,7 +94,12 @@ const Reminders = () => {
                                       <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}>{time}</td>
                                       <td>{description}</td>
                                       <td>{city.split(', ')[0]}</td>
-                                      <td>{coordinates}</td>
+                                      <td>
+                                        <WeatherForecast
+                                          coordinates={coordinates}
+                                          reminderTime={reminderTime}
+                                        />
+                                      </td>
                                     </tr>
                                   );
                                 })}

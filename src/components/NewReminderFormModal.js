@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -20,6 +20,8 @@ const NewReminderFormModal = () => {
 
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
+
+  const formValues = useRef(null);
 
   useEffect(() => {
     dispatch(clearMessage());
@@ -53,6 +55,21 @@ const NewReminderFormModal = () => {
       .required('This field is required!'),
   });
 
+  const validateDatetime = (value) => {
+    const { date: formDate } = formValues.current.values;
+    let error;
+
+    if (formDate) {
+      const datetime = new Date(`${formDate}T${value}:00-06:00`);
+
+      if (datetime < new Date()) {
+        error = 'Datetime must be in the future';
+      }
+    }
+
+    return error;
+  };
+
   const handleSubmit = (formValue, { resetForm }) => {
     const {
       description, date, time, city, locationCoordinates,
@@ -85,6 +102,7 @@ const NewReminderFormModal = () => {
         <Modal.Body>
           <div className="new-reminder-form card card-container">
             <Formik
+              innerRef={formValues}
               initialValues={initialValues}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
@@ -120,6 +138,7 @@ const NewReminderFormModal = () => {
                     name="time"
                     type="time"
                     className="form-control"
+                    validate={validateDatetime}
                   />
                   <ErrorMessage
                     name="time"
