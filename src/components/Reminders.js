@@ -11,7 +11,7 @@ import monthNames from '../common/months';
 const Reminders = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState({});
 
   if (!currentUser) {
     return <Redirect to="/" />;
@@ -112,6 +112,8 @@ const Reminders = () => {
                                           setWeatherData={setWeatherData}
                                           dateTime={reminderTime}
                                           time={time}
+                                          city={city}
+                                          id={id}
                                         />
                                       </td>
                                     </tr>

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import openWeatherApiService from '../services/openWeatherApi.service';
 import { setMessage } from '../slices/message';
 import { remindersState } from '../slices/reminders';
 
 const WeatherForecast = ({
-  coordinates, date, dateTime, weatherData, setWeatherData,
+  coordinates, date, dateTime, weatherData, setWeatherData, city, id,
 }) => {
   const getDateDiff = (first, second) => Math.round((second - first) / (1000 * 60 * 60 * 24));
 
@@ -14,6 +14,8 @@ const WeatherForecast = ({
   const today = new Date().setHours(0, 0, 0, 0);
   // const dateObj = new Date(date);
   const dateDiff = getDateDiff(new Date(), dateTime);
+
+  const [loaded, setLoaded] = useState(false);
 
   const [lat, lon] = coordinates.split(', ');
 
@@ -30,11 +32,9 @@ const WeatherForecast = ({
 
   const fetchWeatherData = async () => {
     if (formDate === today) {
-      console.log('Im happening today');
-      // const reminderDateUnixUtc = dateTime.getTime() / 1000;
-      // const reminderDateHour = dateTime.getHours();
+      console.log('Im happening today', city);
       const { data } = await openWeatherApiService.getCurrentWeather({ lat, lon });
-      return data;
+      return data.main.temp;
     }
     const { data } = await openWeatherApiService.getDailyWeather({ lat, lon });
     const { daily: tempByDate } = data;
@@ -54,14 +54,16 @@ const WeatherForecast = ({
       reminderDatetimeTemp = tempByDate[dateDiff].temp.night;
     }
 
+    console.log({ city, reminderDatetimeTemp });
     return reminderDatetimeTemp;
   };
 
   useEffect(async () => {
-    if (!weatherData) {
+    if (Object.keys(weatherData).length === 0 || !(id in weatherData)) {
       try {
         const data = await fetchWeatherData();
-        setWeatherData(data);
+        setLoaded(true);
+        setWeatherData((prevData) => ({ ...prevData, [id]: data }));
       } catch (error) {
         const message = (error.response
           && error.response.data
@@ -69,20 +71,30 @@ const WeatherForecast = ({
         || error.message
         || error.toString();
         dispatch(setMessage(`Weather services error: ${message}`));
+        return exclamationIcon;
       }
+    } else if (id in weatherData) {
+      setLoaded(true);
     }
 
     return () => {
-      setWeatherData(null);
+      setWeatherData({});
+      setLoaded(false);
     };
   }, [weatherData]);
 
   console.log('response data - temp of day: ', weatherData);
 
+  if (!loaded) {
+    return (<span className="spinner-border spinner-border-sm" />);
+  }
+
   return (
-    <div className="d-flex flex-column justify-content-between">
-      <span>{`${weatherData}℃`}</span>
-    </div>
+    loaded && (
+      <div className="d-flex flex-column justify-content-between">
+        <span>{`${weatherData[id]}℃`}</span>
+      </div>
+    )
   );
 };
 
