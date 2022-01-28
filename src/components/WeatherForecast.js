@@ -4,13 +4,11 @@ import openWeatherApiService from '../services/openWeatherApi.service';
 import { setMessage } from '../slices/message';
 
 const WeatherForecast = ({
-  coordinates, date, dateTime, weatherData, setWeatherData, id,
+  coordinates, dateTime, weatherData, setWeatherData, id,
 }) => {
   const getDateDiff = (first, second) => Math.round((second - first) / (1000 * 60 * 60 * 24));
 
   const dispatch = useDispatch();
-  const formDate = new Date(date).setHours(0, 0, 0, 0);
-  const today = new Date().setHours(0, 0, 0, 0);
   const dateDiff = getDateDiff(new Date(), dateTime);
   const idIcon = `${id}Icon`;
   const idTemp = `${id}Temp`;
@@ -21,7 +19,7 @@ const WeatherForecast = ({
 
   const exclamationIcon = (<i className="fas fa-exclamation-circle" />);
 
-  if (formDate < today || dateDiff > 7) {
+  if (dateDiff < 0 || dateDiff > 7) {
     return (
       <div>
         {exclamationIcon}
@@ -30,7 +28,7 @@ const WeatherForecast = ({
   }
 
   const fetchWeatherData = async () => {
-    if (formDate === today) {
+    if (dateDiff === 0) {
       const { data } = await openWeatherApiService.getCurrentWeather({ lat, lon });
       const { weather, main } = data;
       return { icon: weather[0].icon, temp: main.temp };
@@ -55,30 +53,26 @@ const WeatherForecast = ({
   };
 
   useEffect(async () => {
-    if (Object.keys(weatherData).length === 0 || !(idIcon in weatherData)) {
-      try {
-        const data = await fetchWeatherData();
-        const { icon, temp } = data;
-        setWeatherData((prevData) => ({ ...prevData, [idIcon]: icon, [idTemp]: temp }));
-        setLoaded(true);
-      } catch (error) {
-        const message = (error.response
+    try {
+      const data = await fetchWeatherData();
+      const { icon, temp } = data;
+      setWeatherData((prevData) => ({ ...prevData, [idIcon]: icon, [idTemp]: temp }));
+      setLoaded(true);
+    } catch (error) {
+      const message = (error.response
           && error.response.data
           && error.response.data.message)
         || error.message
         || error.toString();
-        dispatch(setMessage(`Weather services error: ${message}`));
-        return exclamationIcon;
-      }
-    } else if (idIcon in weatherData) {
-      setLoaded(true);
+      dispatch(setMessage(`Weather services error: ${message}`));
+      return exclamationIcon;
     }
 
     return () => {
       setWeatherData({});
       setLoaded(false);
     };
-  }, [weatherData]);
+  }, []);
 
   if (!loaded) {
     return (<span className="spinner-border spinner-border-sm" />);
