@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import openWeatherApiService from '../services/openWeatherApi.service';
 import { setMessage } from '../slices/message';
@@ -86,6 +87,18 @@ const WeatherForecast = ({
       </div>
     )
   );
+};
+
+WeatherForecast.propTypes = {
+  coordinates: PropTypes.string.isRequired,
+  dateTime: PropTypes.shape(
+    null,
+  ).isRequired,
+  weatherData: PropTypes.shape(
+    null,
+  ).isRequired,
+  setWeatherData: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default WeatherForecast;
