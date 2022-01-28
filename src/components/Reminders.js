@@ -39,7 +39,7 @@ const Reminders = () => {
     <div className="container px-1">
       <header className="jumbotron d-flex flex-row justify-content-between align-items-center">
         <h3>
-          Reminders
+          Your Reminders
         </h3>
         <NewReminderFormModal />
       </header>

@@ -40,7 +40,7 @@ const Login = ({ history }) => {
     dispatch(login({ email, password }))
       .unwrap()
       .then(() => {
-        history.push('/profile');
+        history.push('/reminders');
         window.location.reload();
       })
       .catch(() => {
@@ -49,7 +49,7 @@ const Login = ({ history }) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/reminders" />;
   }
 
   return (

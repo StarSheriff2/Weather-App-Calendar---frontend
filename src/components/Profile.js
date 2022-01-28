@@ -19,18 +19,9 @@ const Profile = () => {
         </h3>
       </header>
       <p>
-        <strong>Token:</strong>
+        <strong>Name:</strong>
         {' '}
-        {currentUser.auth_token.substring(0, 20)}
-        {' '}
-        ...
-        {' '}
-        {currentUser.auth_token.substr(currentUser.auth_token.length - 20)}
-      </p>
-      <p>
-        <strong>Id:</strong>
-        {' '}
-        {currentUser.id}
+        {currentUser.name}
       </p>
       <p>
         <strong>Email:</strong>
