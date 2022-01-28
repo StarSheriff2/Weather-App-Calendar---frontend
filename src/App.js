@@ -11,6 +11,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import Reminders from './components/Reminders';
+import Home from './components/Home';
 
 import { logout } from './slices/auth';
 
@@ -71,6 +72,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/reminders" component={Reminders} />
+            <Route path="/home" component={Home} />
           </Switch>
         </div>
 

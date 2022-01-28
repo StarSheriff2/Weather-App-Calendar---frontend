@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const Profile = () => {
+const Home = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
   if (!currentUser) {
@@ -13,23 +13,12 @@ const Profile = () => {
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.name}</strong>
-          {' '}
-          Profile
+          <strong>Current Reminders</strong>
         </h3>
       </header>
-      <p>
-        <strong>Name:</strong>
-        {' '}
-        {currentUser.name}
-      </p>
-      <p>
-        <strong>Email:</strong>
-        {' '}
-        {currentUser.email}
-      </p>
+      <p>...Under Construction</p>
     </div>
   );
 };
 
-export default Profile;
+export default Home;
