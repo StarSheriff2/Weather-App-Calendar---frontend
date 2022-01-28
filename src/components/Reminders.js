@@ -110,6 +110,8 @@ const Reminders = () => {
                                           date={date}
                                           weatherData={weatherData}
                                           setWeatherData={setWeatherData}
+                                          dateTime={reminderTime}
+                                          time={time}
                                         />
                                       </td>
                                     </tr>
