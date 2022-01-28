@@ -14,6 +14,8 @@ const WeatherForecast = ({
   const today = new Date().setHours(0, 0, 0, 0);
   // const dateObj = new Date(date);
   const dateDiff = getDateDiff(new Date(), dateTime);
+  const idIcon = `${id}Icon`;
+  const idTemp = `${id}Temp`;
 
   const [loaded, setLoaded] = useState(false);
 
@@ -34,7 +36,8 @@ const WeatherForecast = ({
     if (formDate === today) {
       console.log('Im happening today', city);
       const { data } = await openWeatherApiService.getCurrentWeather({ lat, lon });
-      return data.main.temp;
+      const { weather, main } = data;
+      return { icon: weather[0].icon, temp: main.temp };
     }
     const { data } = await openWeatherApiService.getDailyWeather({ lat, lon });
     const { daily: tempByDate } = data;
@@ -55,15 +58,24 @@ const WeatherForecast = ({
     }
 
     console.log({ city, reminderDatetimeTemp });
-    return reminderDatetimeTemp;
+
+    const { weather } = tempByDate[dateDiff];
+    return { icon: weather[0].icon, temp: reminderDatetimeTemp };
+    // return reminderDatetimeTemp;
   };
 
   useEffect(async () => {
-    if (Object.keys(weatherData).length === 0 || !(id in weatherData)) {
+    if (Object.keys(weatherData).length === 0 || !(idIcon in weatherData)) {
       try {
         const data = await fetchWeatherData();
         setLoaded(true);
-        setWeatherData((prevData) => ({ ...prevData, [id]: data }));
+        const { icon, temp } = data;
+        // const newData = {};
+        // newData[id] = { icon, temp };
+        // console.log('newData Test: ', newData);
+        setWeatherData((prevData) => ({ ...prevData, [idIcon]: icon, [idTemp]: temp }));
+        // console.log('data: ', {icon, temp})
+        console.log('weatherData state: ', weatherData);
       } catch (error) {
         const message = (error.response
           && error.response.data
@@ -73,7 +85,7 @@ const WeatherForecast = ({
         dispatch(setMessage(`Weather services error: ${message}`));
         return exclamationIcon;
       }
-    } else if (id in weatherData) {
+    } else if (idIcon in weatherData) {
       setLoaded(true);
     }
 
@@ -91,8 +103,9 @@ const WeatherForecast = ({
 
   return (
     loaded && (
-      <div className="d-flex flex-column justify-content-between">
-        <span>{`${weatherData[id]}℃`}</span>
+      <div className="d-flex flex-column justify-content-between align-items-center">
+        <span>{`${weatherData[idTemp]}℃`}</span>
+        <span><img src={`http://openweathermap.org/img/wn/${weatherData[idIcon]}@2x.png`} alt="weather icon" width="60" /></span>
       </div>
     )
   );
