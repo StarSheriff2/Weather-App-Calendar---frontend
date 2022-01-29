@@ -13,10 +13,6 @@ const Reminders = () => {
 
   const [weatherData, setWeatherData] = useState({});
 
-  if (!currentUser) {
-    return <Redirect to="/" />;
-  }
-
   const { message } = useSelector((state) => state.message);
 
   const { status, entities: reminders } = useSelector(remindersState);
@@ -34,6 +30,10 @@ const Reminders = () => {
       dispatch(fetchReminders());
     }
   }, []);
+
+  if (!currentUser) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="container px-1">
