@@ -123,3 +123,9 @@ table {
   box-shadow: none;
   background-color: transparent;
 }
+
+@media (min-width: 992px) {
+  .main-container {
+    max-width: 900px;
+  }
+}
