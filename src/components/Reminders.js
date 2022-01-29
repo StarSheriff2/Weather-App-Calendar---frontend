@@ -82,7 +82,10 @@ const Reminders = () => {
                             className={(id < new Date().toLocaleDateString()) ? 'd-none' : 'table-responsive-lg'}
                           >
                             <table className="table table-hover table-sm">
-                              <caption>{new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}</caption>
+                              <caption>
+                                {`${(id === new Date().toLocaleDateString()) ? 'Today ' : ''}
+                                  ${new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}`}
+                              </caption>
                               <tbody>
                                 {reminders.map((reminder) => {
                                   const {
