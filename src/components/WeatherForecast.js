@@ -32,7 +32,7 @@ const WeatherForecast = ({
     if (dateDiff === 0) {
       const { data } = await openWeatherApiService.getCurrentWeather({ lat, lon });
       const { weather, main } = data;
-      return { icon: weather[0].icon, temp: main.temp };
+      return { icon: weather[0].icon, temp: Math.round(main.temp) };
     }
     const { data } = await openWeatherApiService.getDailyWeather({ lat, lon });
     const { daily: tempByDate } = data;
@@ -50,7 +50,7 @@ const WeatherForecast = ({
     }
 
     const { weather } = tempByDate[dateDiff];
-    return { icon: weather[0].icon, temp: reminderDatetimeTemp };
+    return { icon: weather[0].icon, temp: Math.round(reminderDatetimeTemp) };
   };
 
   useEffect(async () => {
@@ -82,7 +82,7 @@ const WeatherForecast = ({
   return (
     loaded && (
       <div className="d-flex flex-column justify-content-between align-items-center">
-        <span>{`${weatherData[idTemp]}℃`}</span>
+        <span>{`${weatherData[idTemp]}°`}</span>
         <span><img src={`http://openweathermap.org/img/wn/${weatherData[idIcon]}@2x.png`} alt="weather icon" width="60" /></span>
       </div>
     )

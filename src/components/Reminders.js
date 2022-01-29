@@ -99,12 +99,12 @@ const Reminders = () => {
                                   return (
                                     <tr
                                       key={id}
-                                      className={(diffMins <= 20 && diffMins >= 0) ? 'active-reminder' : 'table-row'}
+                                      className={(diffMins <= 20 && diffMins >= 0) ? 'table-row active-reminder' : 'table-row'}
                                     >
-                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}><small>{time}</small></td>
-                                      <td>{description}</td>
-                                      <td>{city.split(', ')[0]}</td>
-                                      <td>
+                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow align-middle' : 'table-cell align-middle'}><small>{time}</small></td>
+                                      <td className="align-middle">{description}</td>
+                                      <td className="align-middle">{city.split(', ')[0]}</td>
+                                      <td className="align-middle">
                                         <WeatherForecast
                                           coordinates={coordinates}
                                           date={date}

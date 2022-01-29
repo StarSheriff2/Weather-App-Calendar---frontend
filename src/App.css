@@ -1,11 +1,20 @@
 :root {
   --light-gray: #f7f7f7;
   --speed: 500ms;
+  --blue-text: rgb(0, 140, 255);
 }
 
 label {
   display: block;
   margin-top: 0.6rem;
+}
+
+caption {
+  caption-side: top;
+}
+
+table {
+  table-layout: fixed;
 }
 
 .login-form,
@@ -51,9 +60,37 @@ label {
   border-radius: 50%;
 }
 
+.table-row td {
+  color: var(--blue-text);
+}
+
+.active-reminder td {
+  color: white;
+}
+
+.table-row td:nth-child(1) {
+  width: 14%;
+}
+
+.table-row td:nth-child(2) {
+  width: 40%;
+  overflow-wrap: break-word;
+}
+
+.table-row td:nth-child(3) {
+  width: 27%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row td:nth-child(4) {
+  width: 20%;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
 .active-reminder {
   background-color: #684e91;
-  color: white;
 }
 
 .table-hover tbody tr.active-reminder:hover {
