@@ -70,7 +70,7 @@ const Reminders = () => {
                   return (
                     <ul
                       key={id}
-                      className={(((id - 1) < new Date().getMonth())) ? 'd-none' : 'd-block'}
+                      className={((id - 1) < new Date().getMonth()) ? 'd-none' : 'd-block'}
                     >
                       <h4><strong>{monthNames[id - 1]}</strong></h4>
                       {dates.map((date) => {
@@ -79,11 +79,11 @@ const Reminders = () => {
                         return (
                           <div
                             key={id}
-                            className={(id < new Date().toLocaleDateString()) ? 'd-none' : 'table-responsive-lg'}
+                            className={(new Date(id.replace(/-/g, '/')).toLocaleDateString('en-US') < new Date().toLocaleDateString('en-US')) ? 'd-none' : 'table-responsive-lg'}
                           >
                             <table className="table table-hover table-sm">
                               <caption>
-                                {`${(id === new Date().toLocaleDateString()) ? 'Today ' : ''}
+                                {`${(new Date(id.replace(/-/g, '/')).toLocaleDateString('en-US') === new Date().toLocaleDateString('en-US')) ? 'Today ' : ''}
                                   ${new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}`}
                               </caption>
                               <tbody>
