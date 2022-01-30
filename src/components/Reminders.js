@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NewReminderFormModal from './NewReminderFormModal';
-import WeatherForecast from './WeatherForecast';
+import Reminder from './Reminder';
+// import WeatherForecast from './WeatherForecast';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
@@ -10,8 +11,6 @@ import monthNames from '../common/months';
 
 const Reminders = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-
-  const [weatherData, setWeatherData] = useState({});
 
   const { message } = useSelector((state) => state.message);
 
@@ -87,41 +86,9 @@ const Reminders = () => {
                                   ${new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}`}
                               </caption>
                               <tbody>
-                                {reminders.map((reminder) => {
-                                  const {
-                                    id, description, city,
-                                    date, time, location_coordinates: coordinates,
-                                  } = reminder;
-
-                                  // Compute difference in min between current t and reminder t
-                                  const timeNow = new Date();
-                                  const reminderTime = new Date(`${date}T${time}:00-06:00`);
-                                  const diffMs = +timeNow - +reminderTime;
-                                  const diffMins = Math.floor((diffMs / 1000) / 60);
-
-                                  return (
-                                    <tr
-                                      key={id}
-                                      className={(diffMins <= 20 && diffMins >= 0) ? 'table-row active-reminder' : 'table-row'}
-                                    >
-                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow align-middle' : 'table-cell align-middle'}><small>{time}</small></td>
-                                      <td className="align-middle">{description}</td>
-                                      <td className="align-middle">{city.split(', ')[0]}</td>
-                                      <td className="align-middle">
-                                        <WeatherForecast
-                                          coordinates={coordinates}
-                                          date={date}
-                                          weatherData={weatherData}
-                                          setWeatherData={setWeatherData}
-                                          dateTime={reminderTime}
-                                          time={time}
-                                          city={city}
-                                          id={id}
-                                        />
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
+                                {reminders.map((reminder) => (
+                                  <Reminder key={reminder.id} reminder={reminder} />
+                                ))}
                               </tbody>
                             </table>
                           </div>
