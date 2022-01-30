@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NewReminderFormModal from './NewReminderFormModal';
 import Reminder from './Reminder';
-// import WeatherForecast from './WeatherForecast';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
@@ -50,7 +49,10 @@ const Reminders = () => {
       )}
 
       {(status === 'pending' && (
-        <p>Loading Content</p>
+        <div className="d-flex align-items-center">
+          <strong>Loading...</strong>
+          <div className="spinner-border ml-auto" role="status" aria-hidden="true" />
+        </div>
       ))
         || (status === 'fulfilled' && (
           reminders.map((year) => {
