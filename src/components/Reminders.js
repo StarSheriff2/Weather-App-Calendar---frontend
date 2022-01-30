@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NewReminderFormModal from './NewReminderFormModal';
-import WeatherForecast from './WeatherForecast';
+import Reminder from './Reminder';
 
 import { fetchReminders, remindersState } from '../slices/reminders';
 import { clearMessage } from '../slices/message';
@@ -10,12 +10,6 @@ import monthNames from '../common/months';
 
 const Reminders = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-
-  const [weatherData, setWeatherData] = useState({});
-
-  if (!currentUser) {
-    return <Redirect to="/" />;
-  }
 
   const { message } = useSelector((state) => state.message);
 
@@ -35,6 +29,10 @@ const Reminders = () => {
     }
   }, []);
 
+  if (!currentUser) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className="container px-1">
       <header className="jumbotron d-flex flex-row justify-content-between align-items-center">
@@ -51,7 +49,10 @@ const Reminders = () => {
       )}
 
       {(status === 'pending' && (
-        <p>Loading Content</p>
+        <div className="d-flex align-items-center">
+          <strong>Loading...</strong>
+          <div className="spinner-border ml-auto" role="status" aria-hidden="true" />
+        </div>
       ))
         || (status === 'fulfilled' && (
           reminders.map((year) => {
@@ -70,7 +71,7 @@ const Reminders = () => {
                   return (
                     <ul
                       key={id}
-                      className={(((id - 1) < new Date().getMonth())) ? 'd-none' : 'd-block'}
+                      className={((id - 1) < new Date().getMonth()) ? 'd-none' : 'd-block'}
                     >
                       <h4><strong>{monthNames[id - 1]}</strong></h4>
                       {dates.map((date) => {
@@ -79,46 +80,17 @@ const Reminders = () => {
                         return (
                           <div
                             key={id}
-                            className={(id < new Date().toLocaleDateString()) ? 'd-none' : 'table-responsive-lg'}
+                            className={(new Date(id.replace(/-/g, '/')).toLocaleDateString('en-US') < new Date().toLocaleDateString('en-US')) ? 'd-none' : 'table-responsive-lg'}
                           >
                             <table className="table table-hover table-sm">
-                              <caption>{new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}</caption>
+                              <caption>
+                                {`${(new Date(id.replace(/-/g, '/')).toLocaleDateString('en-US') === new Date().toLocaleDateString('en-US')) ? 'Today ' : ''}
+                                  ${new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}`}
+                              </caption>
                               <tbody>
-                                {reminders.map((reminder) => {
-                                  const {
-                                    id, description, city,
-                                    date, time, location_coordinates: coordinates,
-                                  } = reminder;
-
-                                  // Compute difference in min between current t and reminder t
-                                  const timeNow = new Date();
-                                  const reminderTime = new Date(`${date}T${time}:00-06:00`);
-                                  const diffMs = +timeNow - +reminderTime;
-                                  const diffMins = Math.floor((diffMs / 1000) / 60);
-
-                                  return (
-                                    <tr
-                                      key={id}
-                                      className={(diffMins <= 20 && diffMins >= 0) ? 'active-reminder' : 'table-row'}
-                                    >
-                                      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow' : 'table-cell'}><small>{time}</small></td>
-                                      <td>{description}</td>
-                                      <td>{city.split(', ')[0]}</td>
-                                      <td>
-                                        <WeatherForecast
-                                          coordinates={coordinates}
-                                          date={date}
-                                          weatherData={weatherData}
-                                          setWeatherData={setWeatherData}
-                                          dateTime={reminderTime}
-                                          time={time}
-                                          city={city}
-                                          id={id}
-                                        />
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
+                                {reminders.map((reminder) => (
+                                  <Reminder key={reminder.id} reminder={reminder} />
+                                ))}
                               </tbody>
                             </table>
                           </div>
