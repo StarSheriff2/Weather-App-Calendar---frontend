@@ -1,6 +1,6 @@
 import React from 'react';
 import { cleanup } from '@testing-library/react';
-import { renderWithRedux } from '../../tests/test-utils';
+import renderWithRedux from '../../tests/test-utils';
 import App from '../../App';
 
 afterEach(cleanup);

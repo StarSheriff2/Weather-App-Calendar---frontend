@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeatherForecast Renders the Component 1`] = `
+<span
+  className="spinner-border spinner-border-sm"
+/>
+`;

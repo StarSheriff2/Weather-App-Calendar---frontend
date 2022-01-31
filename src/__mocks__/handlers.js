@@ -2,195 +2,99 @@
 import { rest } from 'msw';
 
 // const base_URL = 'https://weather-app-calendar-api.herokuapp.com/';
-const baseURL = 'http://127.0.0.1:3001/';
+const weatherCalendarAppApi = 'http://127.0.0.1:3001/';
+const openWeatherApi = 'https://api.openweathermap.org/data/2.5/weather';
 
-const mockApiResponses = {
+const mockWeatherCalendarAppApiResponses = {
   signUp: {
     message: 'Account created successfully',
     auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
   },
-  // signIn: {
-  //   status: 'created',
-  //   logged_in: true,
-  //   user: {
-  //     id: 1,
-  //     username: 'john_doe',
-  //     name: 'john',
-  //     created_at: '2020-11-05T23:43:07.938Z',
-  //     updated_at: '2020-11-05T23:43:07.938Z',
-  //   },
-  // },
-  // signedIn: {
-  //   logged_in: false,
-  // },
-  // logout: {
-  //   logged_out: true,
-  // },
-  // classes: [
-  //   {
-  //     id: 19,
-  //     title: 'English Composition',
-  //     description: 'Learn how to draft professional essays',
-  //     instructor: 'Jeremy Campbell',
-  //     duration: 4,
-  //     created_at: '2021-11-11T04:20:38.165Z',
-  //     updated_at: '2021-11-11T04:20:38.181Z',
-  //     course_image_url: './images/fakeExpertPic1.jpeg',
-  //   },
-  //   {
-  //     id: 21,
-  //     title: 'Singing',
-  //     description: 'Learn to sing',
-  //     instructor: 'Jackie',
-  //     duration: 5,
-  //     created_at: '2021-11-11T14:20:44.084Z',
-  //     updated_at: '2021-11-11T14:20:44.097Z',
-  //     course_image_url: './images/fakeExpertPic2.jpeg',
-  //   },
-  // ],
-  // cities: [
-  //   {
-  //     id: 33,
-  //     name: 'Ciudad de Mexico, Mexico',
-  //     created_at: '2021-11-05T23:43:07.943Z',
-  //     updated_at: '2021-11-05T23:43:07.943Z',
-  //   },
-  //   {
-  //     id: 34,
-  //     name: 'New York, USA',
-  //     created_at: '2021-11-05T23:43:07.953Z',
-  //     updated_at: '2021-11-05T23:43:07.953Z',
-  //   },
-  //   {
-  //     id: 35,
-  //     name: 'Abuja, Nigeria',
-  //     created_at: '2021-11-05T23:43:07.959Z',
-  //     updated_at: '2021-11-05T23:43:07.959Z',
-  //   },
-  //   {
-  //     id: 36,
-  //     name: 'São Paulo, Brasil',
-  //     created_at: '2021-11-05T23:43:07.965Z',
-  //     updated_at: '2021-11-05T23:43:07.965Z',
-  //   },
-  // ],
-  // addClass: {
-  //   message: 'Course successfully created',
-  //   status: 'created',
-  //   course: {
-  //     id: 22,
-  //     title: 'Landscaping',
-  //     description: 'Learn about the latest techniques and trends in this ever evolving field.',
-  //     instructor: 'Andrés Segovia',
-  //     duration: 5,
-  //     created_at: new Date(Date.now()).toISOString().substr(0, 10),
-  //     updated_at: new Date(Date.now()).toISOString().substr(0, 10),
-  //     course_image_url: 'https://res.cloudinary.com/starsheriff/image/upload/fake_image.jpeg',
-  //   },
-  // },
-  // reservations: [
-  //   {
-  //     user: 'john',
-  //     course: 'Singing',
-  //     city: 'New York, USA',
-  //     date: '2021-11-13',
-  //     id: 36,
-  //     created_at: '2021-11-11T14:21:26.409Z',
-  //     updated_at: '2021-11-11T14:21:26.409Z',
-  //   },
-  //   {
-  //     user: 'john',
-  //     course: 'Yoga',
-  //     city: 'New York, USA',
-  //     date: '2021-11-14',
-  //     id: 37,
-  //     created_at: '2021-11-12T16:04:34.791Z',
-  //     updated_at: '2021-11-12T16:04:34.791Z',
-  //   },
-  //   {
-  //     user: 'john',
-  //     course: 'Photography',
-  //     city: 'Abuja, Nigeria',
-  //     date: '2021-11-20',
-  //     id: 41,
-  //     created_at: '2021-11-14T21:31:05.624Z',
-  //     updated_at: '2021-11-14T21:31:05.624Z',
-  //   },
-  // ],
-  // reserveCourse(date) {
-  //   return {
-  //     reservation: {
-  //       user: 'john',
-  //       course: 'English Composition',
-  //       city: 'New York, USA',
-  //       date,
-  //       id: 47,
-  //       created_at: new Date(Date.now() + (3600 * 1000 * 24)).toISOString().substr(0, 10),
-  //       updated_at: new Date(Date.now() + (3600 * 1000 * 24)).toISOString().substr(0, 10),
-  //     },
-  //     message: 'Reservation created successfully',
-  //     status: 200,
-  //   };
-  // },
+  login: {
+    auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
+    id: 1,
+    name: 'Test User',
+    email: 'foo@bar.com',
+  },
+  reminders: [
+    {
+      id: 1,
+      description: 'similique odit nesciunt',
+      date: '2023-01-03',
+      time: '07:59',
+      city: 'Friesenhaven',
+      location_coordinates: '32.761874953746414, -47.48298461620212',
+    },
+    {
+      id: 2,
+      description: 'velit consequuntur sit',
+      date: '2023-01-11',
+      time: '05:40',
+      city: 'Isaacview',
+      location_coordinates: '-68.99870281816538, -34.06243220125242',
+    },
+  ],
+};
+
+const mockOpenWeatherAppApiResponses = {
+  getWeather: {
+    coord: {
+      lon: -47.483,
+      lat: 32.7619,
+    },
+    weather: [
+      {
+        id: 800,
+        main: 'Clear',
+        description: 'clear sky',
+        icon: '01d',
+      },
+    ],
+    base: 'stations',
+    main: {
+      temp: 19.8,
+      feels_like: 19.95,
+      temp_min: 19.8,
+      temp_max: 19.8,
+      pressure: 1026,
+      humidity: 81,
+      sea_level: 1026,
+      grnd_level: 1026,
+    },
+    visibility: 10000,
+    wind: {
+      speed: 7.18,
+      deg: 149,
+      gust: 8.58,
+    },
+    clouds: {
+      all: 2,
+    },
+    dt: 1643573367,
+    sys: {
+      sunrise: 1643537168,
+      sunset: 1643575209,
+    },
+    timezone: -10800,
+    id: 0,
+    name: '',
+    cod: 200,
+  },
 };
 
 const handlers = [
-  rest.post(`${baseURL}signup`, (req, res, ctx) => res(
+  rest.post(`${weatherCalendarAppApi}signup`, (req, res, ctx) => res(
     ctx.status(201),
-    ctx.json(mockApiResponses.signUp),
+    ctx.json(mockWeatherCalendarAppApiResponses.signUp),
   )),
-  // rest.get(`${baseURL}signed_in`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.signedIn),
-  // )),
-  // rest.post(`${baseURL}sign_in`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.signIn),
-  // )),
-  // rest.delete(`${baseURL}sign_out`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.logout),
-  // )),
-  // rest.get(`${baseURL}courses`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.classes),
-  // )),
-  // rest.post(`${baseURL}courses`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.addClass),
-  // )),
-  // rest.delete(`${baseURL}courses/:id`, (req, res, ctx) => {
-  //   const { id } = req.params;
-  //   const deletedClass = mockApiResponses.classes.filter((c) => c.id === Number(id));
-
-  //   return res(
-  //     ctx.status(200),
-  //     ctx.json(
-  //       {
-  //         course: deletedClass[0],
-  //         message: 'Course successfully deleted',
-  //         status: 200,
-  //       },
-  //     ),
-  //   );
-  // }),
-  // rest.get(`${baseURL}cities`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.cities),
-  // )),
-  // rest.get(`${baseURL}reservations`, (req, res, ctx) => res(
-  //   ctx.status(200),
-  //   ctx.json(mockApiResponses.reservations),
-  // )),
-  // rest.post(`${baseURL}reservations`, (req, res, ctx) => {
-  //   const { reservation } = req.body;
-  //   const { date } = reservation;
-
-  //   return res(
-  //     ctx.status(200),
-  //     ctx.json(mockApiResponses.reserveCourse(date)),
-  //   );
-  // }),
+  rest.get(`${weatherCalendarAppApi}reminders`, (req, res, ctx) => res(
+    ctx.status(200),
+    ctx.json(mockWeatherCalendarAppApiResponses.reminders),
+  )),
+  rest.get(`${openWeatherApi}`, (req, res, ctx) => res(
+    ctx.status(200),
+    ctx.json(mockOpenWeatherAppApiResponses.reminders),
+  )),
 ];
 
 export default handlers;

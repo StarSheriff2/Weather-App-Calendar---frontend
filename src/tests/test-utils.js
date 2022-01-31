@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { render as rtlRender } from '@testing-library/react';
+// import { render as rtlRender } from '@testing-library/react';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import TestRenderer from 'react-test-renderer';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
+// import thunk from 'redux-thunk';
+// import { createStore, applyMiddleware } from 'redux';
 import authReducer from '../slices/auth';
 import messageReducer from '../slices/message';
 import remindersReducer from '../slices/reminders';
@@ -23,24 +23,24 @@ const rootReducer = (state, action) => {
   return appReducer(state, action);
 };
 
-const render = (
-  ui,
-  {
-    initialState,
-    store = createStore(
-      rootReducer,
-      initialState,
-      applyMiddleware(thunk),
-    ),
-    ...renderOptions
-  } = {},
-) => {
-  const Wrapper = ({ children }) => (
-    <Provider store={store}>{children}</Provider>
-  );
+// const render = (
+//   ui,
+//   {
+//     initialState,
+//     store = createStore(
+//       rootReducer,
+//       initialState,
+//       applyMiddleware(thunk),
+//     ),
+//     ...renderOptions
+//   } = {},
+// ) => {
+//   const Wrapper = ({ children }) => (
+//     <Provider store={store}>{children}</Provider>
+//   );
 
-  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
-};
+//   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+// };
 
 const renderWithRedux = (
   component,
@@ -56,6 +56,6 @@ const renderWithRedux = (
   ...TestRenderer.create(<Provider store={store}>{component}</Provider>),
 });
 
-export * from '@testing-library/react';
+// export * from '@testing-library/react';
 
-export { render, renderWithRedux };
+export default renderWithRedux;
