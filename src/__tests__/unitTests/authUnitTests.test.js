@@ -1,4 +1,4 @@
-import authReducer from '../../slices/auth';
+import authReducer, { register } from '../../slices/auth';
 
 const initialState = {
   isLoggedIn: false,
@@ -10,37 +10,22 @@ describe('authReducer', () => {
     expect(authReducer(undefined, {})).toEqual(initialState);
   });
 
-  xdescribe('signUpUser action', () => {
+  describe('register action', () => {
     test('should handle payload from successful request', () => {
       const payload = {
-        status: 'created',
-        logged_in: true,
-        user: {
-          id: 41,
-          username: 'Goku',
-          name: 'Kakarot',
-          created_at: '2021-12-02T04:07:08.069Z',
-          updated_at: '2021-12-02T04:07:08.069Z',
-        },
+        message: 'Account created successfully',
+        auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
       };
 
-      expect(sessionReducer(initialState, signUpUser.fulfilled(payload))).toEqual(
+      expect(authReducer(initialState, register.fulfilled(payload))).toEqual(
         {
-          user: {
-            id: 41,
-            username: 'Goku',
-            name: 'Kakarot',
-            created_at: '2021-12-02T04:07:08.069Z',
-            updated_at: '2021-12-02T04:07:08.069Z',
-          },
-          logged_in: true,
-          status: 'fulfilled',
-          error: null,
+          isLoggedIn: false,
+          user: null,
         },
       );
     });
 
-    test('should handle payload from unsuccessful request', () => {
+    xtest('should handle payload from unsuccessful request', () => {
       const payload = {
         status: 401,
         error: 'This username already exists. Please Choose another one.',
