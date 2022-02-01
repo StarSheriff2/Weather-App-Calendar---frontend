@@ -5,7 +5,7 @@ import openWeatherApiService from '../services/openWeatherApi.service';
 import { setMessage } from '../slices/message';
 
 const WeatherForecast = ({
-  coordinates, dateTime, dateDiff,
+  coordinates, dateTime, dateDiff, currentReminder,
 }) => {
   const dispatch = useDispatch();
   const [weatherData, setWeatherData] = useState();
@@ -13,7 +13,7 @@ const WeatherForecast = ({
   const [lat, lon] = coordinates.split(', ');
 
   const fetchWeatherData = async () => {
-    if (dateDiff === 0) {
+    if (currentReminder) {
       const { data } = await openWeatherApiService.getCurrentWeather({ lat, lon });
       const { weather, main } = data;
       return [weather[0].icon, Math.round(main.temp)];
@@ -73,6 +73,7 @@ WeatherForecast.propTypes = {
     null,
   ).isRequired,
   dateDiff: PropTypes.number.isRequired,
+  currentReminder: PropTypes.bool.isRequired,
 };
 
 export default WeatherForecast;

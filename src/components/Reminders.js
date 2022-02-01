@@ -80,7 +80,6 @@ const Reminders = () => {
                         return (
                           <div
                             key={id}
-                            className={(new Date(id.replace(/-/g, '/')).toLocaleDateString('en-US') < new Date().toLocaleDateString('en-US')) ? 'd-none' : 'table-responsive-lg'}
                           >
                             <table className="table table-hover table-sm">
                               <caption>

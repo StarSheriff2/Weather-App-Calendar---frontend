@@ -20,7 +20,7 @@ const Reminder = ({ reminder }) => {
   const dateDiff = getDateDiff(new Date(), reminderTime);
 
   let weatherContent = null;
-  if (dateDiff < 0) {
+  if ((dateDiff < 0) || (dateDiff === 0 && diffMins > 20)) {
     weatherContent = (
       <div>
         <i className="fas fa-exclamation-circle text-muted" />
@@ -38,6 +38,7 @@ const Reminder = ({ reminder }) => {
         coordinates={coordinates}
         dateTime={reminderTime}
         dateDiff={dateDiff}
+        currentReminder={(diffMins <= 20 && diffMins >= 0)}
       />
     );
   }
