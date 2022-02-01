@@ -113,26 +113,16 @@ describe('remindersReducer', () => {
       );
     });
 
-    xtest('should handle payload from unsuccessful request', () => {
+    test('should handle payload from unsuccessful request', () => {
       const payload = {
-        message: 'Invalid credentials',
+        message: 'Invalid segment encoding',
       };
 
       expect(remindersReducer(initialState, newReminder.rejected(payload))).toEqual(
         {
-          isLoggedIn: false,
-          user: null,
-        },
-      );
-    });
-  });
-
-  xdescribe('logout action', () => {
-    test('should return proper state after logout', () => {
-      expect(remindersReducer(initialState, logout.fulfilled())).toEqual(
-        {
-          isLoggedIn: false,
-          user: null,
+          status: 'idle',
+          entities: [],
+          newReminderStatus: 'rejected',
         },
       );
     });
