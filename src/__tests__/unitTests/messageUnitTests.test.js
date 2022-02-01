@@ -19,36 +19,11 @@ describe('messageReducer', () => {
     });
   });
 
-  xdescribe('newReminder action', () => {
+  describe('clearMessage action', () => {
     test('should handle payload from successful request', () => {
-      const payload = {
-        id: 41,
-        description: 'Go pick up business cards',
-        date: '2022-02-01',
-        time: '14:30',
-        city: 'Buenos Aires',
-        location_coordinates: '-34.6036844, -58.3815591',
-      };
-
-      expect(messageReducer(initialState, newReminder.fulfilled(payload))).toEqual(
+      expect(messageReducer(initialState, clearMessage())).toEqual(
         {
-          status: 'idle',
-          entities: [],
-          newReminderStatus: 'fulfilled',
-        },
-      );
-    });
-
-    test('should handle payload from unsuccessful request', () => {
-      const payload = {
-        message: 'Invalid segment encoding',
-      };
-
-      expect(messageReducer(initialState, newReminder.rejected(payload))).toEqual(
-        {
-          status: 'idle',
-          entities: [],
-          newReminderStatus: 'rejected',
+          message: '',
         },
       );
     });
