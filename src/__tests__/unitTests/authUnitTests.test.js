@@ -1,4 +1,4 @@
-import authReducer, { register } from '../../slices/auth';
+import authReducer, { register, login } from '../../slices/auth';
 
 const initialState = {
   isLoggedIn: false,
@@ -25,64 +25,53 @@ describe('authReducer', () => {
       );
     });
 
-    xtest('should handle payload from unsuccessful request', () => {
+    test('should handle payload from unsuccessful request', () => {
       const payload = {
-        status: 401,
-        error: 'This username already exists. Please Choose another one.',
+        message: "Validation failed: Password can't be blank, Name can't be blank, Email can't be blank, Email is invalid, Password digest can't be blank",
       };
 
-      expect(sessionReducer(initialState, signUpUser.fulfilled(payload))).toEqual(
+      expect(authReducer(initialState, register.fulfilled(payload))).toEqual(
         {
-          user: {},
-          logged_in: false,
-          status: 'fulfilled',
-          error: 'This username already exists. Please Choose another one.',
+          isLoggedIn: false,
+          user: null,
         },
       );
     });
   });
 
-  xdescribe('loginUser action', () => {
+  describe('login action', () => {
     test('should handle payload from successful request', () => {
       const payload = {
-        status: 'created',
-        logged_in: true,
         user: {
+          auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
           id: 1,
-          username: 'john_doe',
-          name: 'john',
-          created_at: '2020-11-05T23:43:07.938Z',
-          updated_at: '2020-11-05T23:43:07.938Z',
+          name: 'Test User',
+          email: 'foo@bar.com',
         },
       };
 
-      expect(sessionReducer(initialState, loginUser.fulfilled(payload))).toEqual(
+      expect(authReducer(initialState, login.fulfilled(payload))).toEqual(
         {
+          isLoggedIn: true,
           user: {
+            auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
+            email: 'foo@bar.com',
             id: 1,
-            username: 'john_doe',
-            name: 'john',
-            created_at: '2020-11-05T23:43:07.938Z',
-            updated_at: '2020-11-05T23:43:07.938Z',
+            name: 'Test User',
           },
-          logged_in: true,
-          status: 'fulfilled',
-          error: null,
         },
       );
     });
 
     test('should handle payload from unsuccessful request', () => {
       const payload = {
-        status: 401,
+        message: 'Invalid credentials',
       };
 
-      expect(sessionReducer(initialState, loginUser.fulfilled(payload))).toEqual(
+      expect(authReducer(initialState, login.rejected(payload))).toEqual(
         {
-          user: {},
-          logged_in: false,
-          status: 'fulfilled',
-          error: 'Username does not exist. Please try again.',
+          isLoggedIn: false,
+          user: null,
         },
       );
     });
