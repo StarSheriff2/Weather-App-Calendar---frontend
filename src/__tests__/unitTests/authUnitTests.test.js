@@ -1,4 +1,4 @@
-import authReducer, { register, login } from '../../slices/auth';
+import authReducer, { register, login, logout } from '../../slices/auth';
 
 const initialState = {
   isLoggedIn: false,
@@ -77,18 +77,12 @@ describe('authReducer', () => {
     });
   });
 
-  xdescribe('logoutUser action', () => {
-    test('should handle payload from successful request', () => {
-      const payload = {
-        logged_out: true,
-      };
-
-      expect(authReducer(initialState, logoutUser.fulfilled(payload))).toEqual(
+  describe('logout action', () => {
+    test('should return proper state after logout', () => {
+      expect(authReducer(initialState, logout.fulfilled())).toEqual(
         {
-          user: {},
-          logged_in: false,
-          status: 'fulfilled',
-          error: null,
+          isLoggedIn: false,
+          user: null,
         },
       );
     });
