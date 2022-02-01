@@ -31,7 +31,6 @@ export default class GoogleMapsApiAutocomplete extends Component {
   }
 
   render() {
-    console.log('form prop: ', this.props.form);
     const { name, value } = this.props.field;
     const { placeholder } = this.props;
 
