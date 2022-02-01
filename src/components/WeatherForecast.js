@@ -73,7 +73,11 @@ WeatherForecast.propTypes = {
     null,
   ).isRequired,
   dateDiff: PropTypes.number.isRequired,
-  currentReminder: PropTypes.bool.isRequired,
+  currentReminder: PropTypes.bool,
+};
+
+WeatherForecast.defaultProps = {
+  currentReminder: false,
 };
 
 export default WeatherForecast;

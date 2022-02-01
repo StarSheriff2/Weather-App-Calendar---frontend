@@ -15,6 +15,7 @@ const Reminder = ({ reminder }) => {
   const reminderTime = new Date(`${date}T${time}:00-06:00`);
   const diffMs = +timeNow - +reminderTime;
   const diffMins = Math.floor((diffMs / 1000) / 60);
+  const currentReminder = !!((diffMins <= 20 && diffMins >= 0));
 
   // Compute difference in days
   const dateDiff = getDateDiff(new Date(), reminderTime);
@@ -38,7 +39,7 @@ const Reminder = ({ reminder }) => {
         coordinates={coordinates}
         dateTime={reminderTime}
         dateDiff={dateDiff}
-        currentReminder={(diffMins <= 20 && diffMins >= 0)}
+        currentReminder={currentReminder}
       />
     );
   }

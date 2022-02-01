@@ -57,11 +57,13 @@ const Reminders = () => {
         || (status === 'fulfilled' && (
           reminders.map((year) => {
             const { id, months } = year;
+            const currYear = new Date(Date.now()).getFullYear();
+            const reminderYear = id;
 
             return (
               <ul
                 key={id}
-                className={((id < new Date(Date.now()).getFullYear())) ? 'd-none' : 'd-block'}
+                className={(id < currYear) ? 'd-none' : 'd-block'}
               >
                 <p className="display-4">{id}</p>
 
@@ -71,7 +73,7 @@ const Reminders = () => {
                   return (
                     <ul
                       key={id}
-                      className={((id - 1) < new Date().getMonth()) ? 'd-none' : 'd-block'}
+                      className={(((id - 1) < new Date().getMonth()) && reminderYear === currYear) ? 'd-none' : 'd-block'}
                     >
                       <h4><strong>{monthNames[id - 1]}</strong></h4>
                       {dates.map((date) => {
