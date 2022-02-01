@@ -30,9 +30,9 @@ const WeatherForecast = ({
     } if (reminderHour >= 12 && reminderHour < 17) {
       return [icon, Math.round(temp.day)];
     } if (reminderHour >= 17 && reminderHour < 19) {
-      return [icon, Math.round(temp.eve)];
+      return [icon.replace(/d/, 'n'), Math.round(temp.eve)];
     }
-    return [icon, Math.round(temp.night)];
+    return [icon.replace(/d/, 'n'), Math.round(temp.night)];
   };
 
   useEffect(async () => {
