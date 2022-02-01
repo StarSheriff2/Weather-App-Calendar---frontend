@@ -1,4 +1,4 @@
-import remindersReducer, { fetchReminders } from '../../slices/reminders';
+import remindersReducer, { fetchReminders, newReminder } from '../../slices/reminders';
 
 const initialState = {
   status: 'idle',
@@ -93,36 +93,32 @@ describe('remindersReducer', () => {
     });
   });
 
-  xdescribe('login action', () => {
+  describe('newReminder action', () => {
     test('should handle payload from successful request', () => {
       const payload = {
-        user: {
-          auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
-          id: 1,
-          name: 'Test User',
-          email: 'foo@bar.com',
-        },
+        id: 41,
+        description: 'Go pick up business cards',
+        date: '2022-02-01',
+        time: '14:30',
+        city: 'Buenos Aires',
+        location_coordinates: '-34.6036844, -58.3815591',
       };
 
-      expect(remindersReducer(initialState, login.fulfilled(payload))).toEqual(
+      expect(remindersReducer(initialState, newReminder.fulfilled(payload))).toEqual(
         {
-          isLoggedIn: true,
-          user: {
-            auth_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE2NDM2NDQwODB9.ZMGLcmQFckKcCHT9ucSCsK4z2znFIs95_AiuguutkVk',
-            email: 'foo@bar.com',
-            id: 1,
-            name: 'Test User',
-          },
+          status: 'idle',
+          entities: [],
+          newReminderStatus: 'fulfilled',
         },
       );
     });
 
-    test('should handle payload from unsuccessful request', () => {
+    xtest('should handle payload from unsuccessful request', () => {
       const payload = {
         message: 'Invalid credentials',
       };
 
-      expect(remindersReducer(initialState, login.rejected(payload))).toEqual(
+      expect(remindersReducer(initialState, newReminder.rejected(payload))).toEqual(
         {
           isLoggedIn: false,
           user: null,

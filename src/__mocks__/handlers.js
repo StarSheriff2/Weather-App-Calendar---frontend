@@ -16,7 +16,7 @@ const mockWeatherCalendarAppApiResponses = {
     name: 'Test User',
     email: 'foo@bar.com',
   },
-  reminders: [
+  fetchReminders: [
     {
       id: 1,
       description: 'similique odit nesciunt',
@@ -34,6 +34,14 @@ const mockWeatherCalendarAppApiResponses = {
       location_coordinates: '-68.99870281816538, -34.06243220125242',
     },
   ],
+  newReminder: {
+    id: 41,
+    description: 'Go pick up business cards',
+    date: '2022-02-01',
+    time: '14:30',
+    city: 'Buenos Aires',
+    location_coordinates: '-34.6036844, -58.3815591',
+  },
 };
 
 const mockOpenWeatherAppApiResponses = {
@@ -89,7 +97,7 @@ const handlers = [
   )),
   rest.get(`${weatherCalendarAppApi}reminders`, (req, res, ctx) => res(
     ctx.status(200),
-    ctx.json(mockWeatherCalendarAppApiResponses.reminders),
+    ctx.json(mockWeatherCalendarAppApiResponses.fetchReminders),
   )),
   rest.get(`${openWeatherApi}`, (req, res, ctx) => res(
     ctx.status(200),
