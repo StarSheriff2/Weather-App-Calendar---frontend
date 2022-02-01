@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reminder Renders the Component 1`] = `
+<tr
+  className="table-row"
+>
+  <td
+    className="table-cell align-middle"
+  >
+    <small>
+      05:39
+    </small>
+  </td>
+  <td
+    className="align-middle"
+  >
+    quod consequatur
+  </td>
+  <td
+    className="align-middle"
+  >
+    Connville
+  </td>
+  <td
+    className="align-middle"
+  >
+    <span
+      className="spinner-border spinner-border-sm"
+    />
+  </td>
+</tr>
+`;

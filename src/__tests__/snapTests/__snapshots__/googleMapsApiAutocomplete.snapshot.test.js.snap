@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoogleMapsApiAutocomplete Renders the Component 1`] = `
+<div>
+  <input
+    aria-autocomplete="list"
+    aria-expanded={false}
+    autoComplete="off"
+    className="location-search-input form-control"
+    disabled={false}
+    name="city"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Search location"
+    role="combobox"
+    type="text"
+    value=""
+  />
+  <div
+    className="autocomplete-dropdown-container"
+  />
+</div>
+`;
