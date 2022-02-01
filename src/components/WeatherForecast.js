@@ -61,7 +61,7 @@ const WeatherForecast = ({
     weatherData && (
       <div className="d-flex flex-column justify-content-between align-items-center">
         <span>{`${weatherData[1]}°`}</span>
-        <span><img src={`http://openweathermap.org/img/wn/${weatherData[0]}@2x.png`} alt="weather icon" width="60" /></span>
+        <span><img src={`https://openweathermap.org/img/wn/${weatherData[0]}@2x.png`} alt="weather icon" width="60" /></span>
       </div>
     )
   );
