@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import { rest } from 'msw';
 
-// const base_URL = 'https://weather-app-calendar-api.herokuapp.com/';
-const weatherCalendarAppApi = 'http://127.0.0.1:3001/';
+const weatherCalendarAppApi = process.env.REACT_APP_WEATHER_APP_CALENDAR_API;
 const openWeatherApi = 'https://api.openweathermap.org/data/2.5/weather';
 
 const mockWeatherCalendarAppApiResponses = {
