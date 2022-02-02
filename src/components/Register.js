@@ -38,6 +38,13 @@ const Register = () => {
       )
       .required('This field is required!'),
     email: Yup.string()
+      .test(
+        'len',
+        'Email is too long (maximum is 65 characters).',
+        (val) => val
+          && val.toString().length >= 3
+          && val.toString().length <= 20,
+      )
       .email('This is not a valid email.')
       .required('This field is required!'),
     password: Yup.string()
@@ -123,7 +130,7 @@ const Register = () => {
                   <label htmlFor="passwordConfirmation">Password Confirmation</label>
                   <Field
                     name="passwordConfirmation"
-                    type="passwordConfirmation"
+                    type="password"
                     className="form-control"
                   />
                   <ErrorMessage
