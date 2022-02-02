@@ -43,7 +43,7 @@ const Register = () => {
         'Email is too long (maximum is 65 characters).',
         (val) => val
           && val.toString().length >= 3
-          && val.toString().length <= 20,
+          && val.toString().length <= 65,
       )
       .email('This is not a valid email.')
       .required('This field is required!'),
