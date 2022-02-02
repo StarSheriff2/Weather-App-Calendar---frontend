@@ -69,6 +69,10 @@ Some of the technical highlights implemented in this project:
 
 - Deployed to Netlify: [Live Demo](https://weather-app-calendar.netlify.app/)
 
+- For a quick view of the app, log in with the following credentials:
+  - email: *foo@bar.com*
+  - password: *foobar44A33!*
+
 ### Video Presentation
 
 Coming soon...
