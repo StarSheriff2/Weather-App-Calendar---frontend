@@ -82,7 +82,7 @@ exports[`Register Renders the Component 1`] = `
             name="passwordConfirmation"
             onBlur={[Function]}
             onChange={[Function]}
-            type="passwordConfirmation"
+            type="password"
             value=""
           />
         </div>
