@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Renders the App 1`] = `
+<div>
+  <nav
+    className="navbar navbar-expand navbar-dark bg-dark"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      WAC
+    </a>
+    <div
+      className="navbar-nav mr-auto"
+    />
+  </nav>
+  <div
+    className="container main-container mt-3 px-1"
+  >
+    <div
+      className="col-md-12 login-form"
+    >
+      <div
+        className="card card-container"
+      >
+        <img
+          alt="profile-img"
+          className="profile-img-card"
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        />
+        <form
+          action="#"
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              className="form-control"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className="form-control"
+              id="password"
+              name="password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="password"
+              value=""
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <button
+              className="btn btn-primary btn-block"
+              disabled={false}
+              type="submit"
+            >
+              <span>
+                Login
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <p
+        className="text-center"
+      >
+        Don't have an account?
+      </p>
+      <p
+        className="text-center"
+      >
+        Sign up
+         
+        <a
+          href="/register"
+          onClick={[Function]}
+        >
+          here
+        </a>
+      </p>
+    </div>
+  </div>
+  <div />
+</div>
+`;

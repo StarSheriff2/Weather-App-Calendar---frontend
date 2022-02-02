@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register Renders the Component 1`] = `
+<div
+  className="col-md-12 signup-form"
+>
+  <div
+    className="card card-container"
+  >
+    <img
+      alt="profile-img"
+      className="profile-img-card"
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    />
+    <form
+      action="#"
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="name"
+          >
+            Name
+          </label>
+          <input
+            className="form-control"
+            name="name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="form-control"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="form-control"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="passwordConfirmation"
+          >
+            Password Confirmation
+          </label>
+          <input
+            className="form-control"
+            name="passwordConfirmation"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <button
+            className="btn btn-primary btn-block"
+            type="submit"
+          >
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <p
+    className="text-center mt-3"
+  >
+    Already have an account?
+  </p>
+  <p
+    className="text-center"
+  >
+    Sign in
+     
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      here
+    </a>
+  </p>
+</div>
+`;

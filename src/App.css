@@ -1,38 +1,131 @@
-.App {
-  text-align: center;
+:root {
+  --light-gray: #f7f7f7;
+  --speed: 500ms;
+  --blue-text: rgb(0, 140, 255);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+label {
+  display: block;
+  margin-top: 0.6rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+caption {
+  caption-side: top;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+table {
+  table-layout: fixed;
+}
+
+.login-form,
+.signup-form {
+  max-width: 350px;
+  margin: auto;
+}
+
+.add-reminder-modal-btn-text {
+  font-size: 1.4rem;
+  padding: 0;
+  height: 2.4rem;
+  width: 2.4rem;
+  line-height: 2rem;
+  display: inline-block;
+}
+
+.fa-bars {
+  font-size: 1.6em;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.card {
+  background-color: var(--light-gray);
+  padding: 1.2rem 1.6rem 1.9rem;
+  margin: 0 auto 1.6rem;
+  margin-top: 3.1rem;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes App-logo-spin {
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 0.6rem;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.table-row td {
+  color: var(--blue-text);
+}
+
+.active-reminder td {
+  color: white;
+}
+
+.table-row td:nth-child(1) {
+  width: 14%;
+}
+
+.table-row td:nth-child(2) {
+  width: 40%;
+  overflow-wrap: break-word;
+}
+
+.table-row td:nth-child(3) {
+  width: 27%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row td:nth-child(4) {
+  width: 20%;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.active-reminder {
+  background-color: #684e91;
+}
+
+.table-hover tbody tr.active-reminder:hover {
+  background-color: #684e91 !important;
+  color: white !important;
+}
+
+.glow {
+  color: white;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
   from {
-    transform: rotate(0deg);
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #6ca80c, 0 0 40px #6ca80c, 0 0 50px #6ca80c, 0 0 60px #6ca80c, 0 0 70px #6ca80c;
   }
+
   to {
-    transform: rotate(360deg);
+    text-shadow: 0 0 20px #fff, 0 0 30px #8ee600, 0 0 40px #8ee600, 0 0 50px #8ee600, 0 0 60px #8ee600, 0 0 70px #8ee600, 0 0 80px #8ee600;
+  }
+}
+
+.new-reminder-form {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  .main-container {
+    max-width: 900px;
   }
 }
