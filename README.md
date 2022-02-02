@@ -230,4 +230,4 @@ Give a ⭐️ if you like this project!
 
 ## 📝 License
 
-This project is [MIT]() licensed.
+This project is [MIT](https://github.com/StarSheriff2/Weather-App-Calendar---frontend/blob/main/LICENSE) licensed.
