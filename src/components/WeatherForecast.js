@@ -15,38 +15,40 @@ const WeatherForecast = ({
   const [error, setError] = useState();
   const [lat, lon] = coordinates.split(', ');
 
-  const fetchWeatherData = async () => {
-    if (currentReminder) {
-      const { data } = await openWeatherApiService.getCurrentWeather({
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      if (currentReminder) {
+        const { data } = await openWeatherApiService.getCurrentWeather({
+          lat,
+          lon,
+        });
+        const { weather, main } = data;
+        return [weather[0].icon, Math.round(main.temp)];
+      }
+      const { data } = await openWeatherApiService.getDailyWeather({
         lat,
         lon,
       });
-      const { weather, main } = data;
-      return [weather[0].icon, Math.round(main.temp)];
-    }
-    const { data } = await openWeatherApiService.getDailyWeather({ lat, lon });
-    const { daily: tempByDate } = data;
-    const { weather } = tempByDate[dateDiff];
-    const { icon } = weather[0];
-    const reminderHour = dateTime.getHours();
-    const { temp } = tempByDate[dateDiff];
+      const { daily: tempByDate } = data;
+      const { weather } = tempByDate[dateDiff];
+      const { icon } = weather[0];
+      const reminderHour = dateTime.getHours();
+      const { temp } = tempByDate[dateDiff];
 
-    if (reminderHour >= 5 && reminderHour < 12) {
-      return [icon, Math.round(temp.morn)];
-    }
-    if (reminderHour >= 12 && reminderHour < 17) {
-      return [icon, Math.round(temp.day)];
-    }
-    if (reminderHour >= 17 && reminderHour < 19) {
-      return [icon.replace(/d/, 'n'), Math.round(temp.eve)];
-    }
-    return [icon.replace(/d/, 'n'), Math.round(temp.night)];
-  };
+      if (reminderHour >= 5 && reminderHour < 12) {
+        return [icon, Math.round(temp.morn)];
+      }
+      if (reminderHour >= 12 && reminderHour < 17) {
+        return [icon, Math.round(temp.day)];
+      }
+      if (reminderHour >= 17 && reminderHour < 19) {
+        return [icon.replace(/d/, 'n'), Math.round(temp.eve)];
+      }
+      return [icon.replace(/d/, 'n'), Math.round(temp.night)];
+    };
 
-  useEffect(async () => {
     try {
-      const [icon, temp] = await fetchWeatherData();
-      setWeatherData([icon, temp]);
+      fetchWeatherData().then(([icon, temp]) => setWeatherData([icon, temp]));
     } catch (error) {
       dispatch(
         setMessage('Problems fetching weather data. Try reloading the page.')
@@ -57,7 +59,7 @@ const WeatherForecast = ({
     return () => {
       setWeatherData();
     };
-  }, []);
+  }, [currentReminder, dateDiff, dateTime, dispatch, lat, lon]);
 
   if (!weatherData && !error) {
     return <span className="spinner-border spinner-border-sm" />;
