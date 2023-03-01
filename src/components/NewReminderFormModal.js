@@ -2,9 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Formik, Field, Form, ErrorMessage,
-} from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import GoogleMapsApiAutocomplete from './GoogleMapsApiAutocomplete';
 
@@ -40,19 +38,14 @@ const NewReminderFormModal = () => {
       .test(
         'len',
         'The description must be between 3 and 30 characters.',
-        (val) => val
-          && val.toString().length >= 3
-          && val.toString().length <= 30,
+        (val) =>
+          val && val.toString().length >= 3 && val.toString().length <= 30
       )
       .required('This field is required!'),
-    date: Yup.date()
-      .required('This field is required!'),
-    time: Yup.string()
-      .required('This field is required!'),
-    city: Yup.string()
-      .required('This field is required!'),
-    locationCoordinates: Yup.string()
-      .required('This field is required!'),
+    date: Yup.date().required('This field is required!'),
+    time: Yup.string().required('This field is required!'),
+    city: Yup.string().required('This field is required!'),
+    locationCoordinates: Yup.string().required('This field is required!'),
   });
 
   const validateDatetime = (value) => {
@@ -71,16 +64,19 @@ const NewReminderFormModal = () => {
   };
 
   const handleSubmit = (formValue, { resetForm }) => {
-    const {
-      description, date, time, city, locationCoordinates,
-    } = formValue;
+    const { description, date, time, city, locationCoordinates } = formValue;
     const datetime = `${date} ${time}:00`;
 
     setLoading(true);
 
-    dispatch(newReminder({
-      description, datetime, city, locationCoordinates,
-    }))
+    dispatch(
+      newReminder({
+        description,
+        datetime,
+        city,
+        locationCoordinates,
+      })
+    )
       .unwrap()
       .then(() => {
         resetForm();
@@ -122,10 +118,13 @@ const NewReminderFormModal = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="date">
-                    Date
-                  </label>
-                  <Field name="date" type="date" min={new Date().toLocaleDateString()} className="form-control" />
+                  <label htmlFor="date">Date</label>
+                  <Field
+                    name="date"
+                    type="date"
+                    min={new Date().toLocaleDateString()}
+                    className="form-control"
+                  />
                   <ErrorMessage
                     name="date"
                     component="div"
@@ -160,7 +159,9 @@ const NewReminderFormModal = () => {
                   />
                 </div>
                 <div className="form-group" hidden>
-                  <label htmlFor="locationCoordinates">Location Coordinates</label>
+                  <label htmlFor="locationCoordinates">
+                    Location Coordinates
+                  </label>
                   <Field
                     name="locationCoordinates"
                     type="locationCoordinates"
@@ -173,7 +174,11 @@ const NewReminderFormModal = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block"
+                    disabled={loading}
+                  >
                     {loading && (
                       <span className="spinner-border spinner-border-sm" />
                     )}
@@ -191,9 +196,7 @@ const NewReminderFormModal = () => {
             </div>
           )}
         </Modal.Body>
-
       </Modal>
-
     </>
   );
 };

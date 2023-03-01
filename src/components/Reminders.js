@@ -27,7 +27,7 @@ const Reminders = () => {
     if (status === 'idle') {
       dispatch(fetchReminders());
     }
-  }, []);
+  }, [dispatch, status]);
 
   if (!currentUser) {
     return <Redirect to="/" />;
@@ -36,9 +36,7 @@ const Reminders = () => {
   return (
     <div className="container px-1">
       <header className="jumbotron d-flex flex-row justify-content-between align-items-center">
-        <h3>
-          Your Reminders
-        </h3>
+        <h3>Your Reminders</h3>
         <NewReminderFormModal />
       </header>
 
@@ -51,20 +49,21 @@ const Reminders = () => {
       {(status === 'pending' && (
         <div className="d-flex align-items-center">
           <strong>Loading...</strong>
-          <div className="spinner-border ml-auto" role="status" aria-hidden="true" />
+          <div
+            className="spinner-border ml-auto"
+            role="status"
+            aria-hidden="true"
+          />
         </div>
-      ))
-        || (status === 'fulfilled' && (
+      )) ||
+        (status === 'fulfilled' &&
           reminders.map((year) => {
             const { id, months } = year;
             const currYear = new Date(Date.now()).getFullYear();
             const reminderYear = id;
 
             return (
-              <ul
-                key={id}
-                className={(id < currYear) ? 'd-none' : 'd-block'}
-              >
+              <ul key={id} className={id < currYear ? 'd-none' : 'd-block'}>
                 <p className="display-4">{id}</p>
 
                 {months.map((month) => {
@@ -73,24 +72,41 @@ const Reminders = () => {
                   return (
                     <ul
                       key={id}
-                      className={(((id - 1) < new Date().getMonth()) && reminderYear === currYear) ? 'd-none' : 'd-block'}
+                      className={
+                        id - 1 < new Date().getMonth() &&
+                        reminderYear === currYear
+                          ? 'd-none'
+                          : 'd-block'
+                      }
                     >
-                      <h4><strong>{monthNames[id - 1]}</strong></h4>
+                      <h4>
+                        <strong>{monthNames[id - 1]}</strong>
+                      </h4>
                       {dates.map((date) => {
                         const { id, reminders } = date;
 
                         return (
-                          <div
-                            key={id}
-                          >
+                          <div key={id}>
                             <table className="table table-hover table-sm">
                               <caption>
-                                {`${(new Date(id.replace(/-/g, '/')).toLocaleDateString('en-US') === new Date().toLocaleDateString('en-US')) ? 'Today ' : ''}
-                                  ${new Date(id.replace(/-/g, '/')).toLocaleString('en-US', dateOptions)}`}
+                                {`${
+                                  new Date(
+                                    id.replace(/-/g, '/')
+                                  ).toLocaleDateString('en-US') ===
+                                  new Date().toLocaleDateString('en-US')
+                                    ? 'Today '
+                                    : ''
+                                }
+                                  ${new Date(
+                                    id.replace(/-/g, '/')
+                                  ).toLocaleString('en-US', dateOptions)}`}
                               </caption>
                               <tbody>
                                 {reminders.map((reminder) => (
-                                  <Reminder key={reminder.id} reminder={reminder} />
+                                  <Reminder
+                                    key={reminder.id}
+                                    reminder={reminder}
+                                  />
                                 ))}
                               </tbody>
                             </table>
@@ -102,8 +118,7 @@ const Reminders = () => {
                 })}
               </ul>
             );
-          })
-        ))}
+          }))}
     </div>
   );
 };

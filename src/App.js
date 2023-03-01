@@ -1,8 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  BrowserRouter as Router, Switch, Route, Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -51,14 +49,28 @@ const App = () => {
 
           {currentUser && (
             <div className="dropdown">
-              <button className="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button
+                className="btn btn-secondary"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 <i className="fas fa-bars" />
               </button>
-              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <div
+                className="dropdown-menu dropdown-menu-right"
+                aria-labelledby="dropdownMenuButton"
+              >
                 <Link to="/profile" className="nav-link dropdown-item">
                   {currentUser.name}
                 </Link>
-                <a href="/login" className="nav-link dropdown-item" onClick={logOut}>
+                <a
+                  href="/login"
+                  className="nav-link dropdown-item"
+                  onClick={logOut}
+                >
                   LogOut
                 </a>
               </div>

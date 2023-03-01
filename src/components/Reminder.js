@@ -4,24 +4,28 @@ import WeatherForecast from './WeatherForecast';
 
 const Reminder = ({ reminder }) => {
   const {
-    description, city,
-    date, time, location_coordinates: coordinates,
+    description,
+    city,
+    date,
+    time,
+    location_coordinates: coordinates,
   } = reminder;
 
-  const getDateDiff = (first, second) => Math.round((second - first) / (1000 * 60 * 60 * 24));
+  const getDateDiff = (first, second) =>
+    Math.round((second - first) / (1000 * 60 * 60 * 24));
 
   // Compute difference in min between current t and reminder t
   const timeNow = new Date();
   const reminderTime = new Date(`${date}T${time}:00-06:00`);
   const diffMs = +timeNow - +reminderTime;
-  const diffMins = Math.floor((diffMs / 1000) / 60);
-  const currentReminder = !!((diffMins <= 20 && diffMins >= 0));
+  const diffMins = Math.floor(diffMs / 1000 / 60);
+  const currentReminder = !!(diffMins <= 20 && diffMins >= 0);
 
   // Compute difference in days
   const dateDiff = getDateDiff(new Date(), reminderTime);
 
   let weatherContent = null;
-  if ((dateDiff < 0) || (dateDiff === 0 && diffMins > 20)) {
+  if (dateDiff < 0 || (dateDiff === 0 && diffMins > 20)) {
     weatherContent = (
       <div>
         <i className="fas fa-exclamation-circle text-muted" />
@@ -46,14 +50,24 @@ const Reminder = ({ reminder }) => {
 
   return (
     <tr
-      className={(diffMins <= 20 && diffMins >= 0) ? 'table-row active-reminder' : 'table-row'}
+      className={
+        diffMins <= 20 && diffMins >= 0
+          ? 'table-row active-reminder'
+          : 'table-row'
+      }
     >
-      <td className={(diffMins <= 20 && diffMins >= 0) ? 'glow align-middle' : 'table-cell align-middle'}><small>{time}</small></td>
+      <td
+        className={
+          diffMins <= 20 && diffMins >= 0
+            ? 'glow align-middle'
+            : 'table-cell align-middle'
+        }
+      >
+        <small>{time}</small>
+      </td>
       <td className="align-middle">{description}</td>
       <td className="align-middle">{city.split(', ')[0]}</td>
-      <td className="align-middle">
-        {weatherContent}
-      </td>
+      <td className="align-middle">{weatherContent}</td>
     </tr>
   );
 };

@@ -5,7 +5,10 @@ import openWeatherApiService from '../services/openWeatherApi.service';
 import { setMessage } from '../slices/message';
 
 const WeatherForecast = ({
-  coordinates, dateTime, dateDiff, currentReminder,
+  coordinates,
+  dateTime,
+  dateDiff,
+  currentReminder,
 }) => {
   const dispatch = useDispatch();
   const [weatherData, setWeatherData] = useState();
@@ -14,7 +17,10 @@ const WeatherForecast = ({
 
   const fetchWeatherData = async () => {
     if (currentReminder) {
-      const { data } = await openWeatherApiService.getCurrentWeather({ lat, lon });
+      const { data } = await openWeatherApiService.getCurrentWeather({
+        lat,
+        lon,
+      });
       const { weather, main } = data;
       return [weather[0].icon, Math.round(main.temp)];
     }
@@ -27,9 +33,11 @@ const WeatherForecast = ({
 
     if (reminderHour >= 5 && reminderHour < 12) {
       return [icon, Math.round(temp.morn)];
-    } if (reminderHour >= 12 && reminderHour < 17) {
+    }
+    if (reminderHour >= 12 && reminderHour < 17) {
       return [icon, Math.round(temp.day)];
-    } if (reminderHour >= 17 && reminderHour < 19) {
+    }
+    if (reminderHour >= 17 && reminderHour < 19) {
       return [icon.replace(/d/, 'n'), Math.round(temp.eve)];
     }
     return [icon.replace(/d/, 'n'), Math.round(temp.night)];
@@ -40,7 +48,9 @@ const WeatherForecast = ({
       const [icon, temp] = await fetchWeatherData();
       setWeatherData([icon, temp]);
     } catch (error) {
-      dispatch(setMessage('Problems fetching weather data. Try reloading the page.'));
+      dispatch(
+        setMessage('Problems fetching weather data. Try reloading the page.')
+      );
       setError('Network error');
     }
 
@@ -50,18 +60,24 @@ const WeatherForecast = ({
   }, []);
 
   if (!weatherData && !error) {
-    return (<span className="spinner-border spinner-border-sm" />);
+    return <span className="spinner-border spinner-border-sm" />;
   }
 
   if (error) {
-    return (<i className="fas fa-exclamation-circle text-warning" />);
+    return <i className="fas fa-exclamation-circle text-warning" />;
   }
 
   return (
     weatherData && (
       <div className="d-flex flex-column justify-content-between align-items-center">
         <span>{`${weatherData[1]}°`}</span>
-        <span><img src={`https://openweathermap.org/img/wn/${weatherData[0]}@2x.png`} alt="weather icon" width="60" /></span>
+        <span>
+          <img
+            src={`https://openweathermap.org/img/wn/${weatherData[0]}@2x.png`}
+            alt="weather icon"
+            width="60"
+          />
+        </span>
       </div>
     )
   );
@@ -69,9 +85,7 @@ const WeatherForecast = ({
 
 WeatherForecast.propTypes = {
   coordinates: PropTypes.string.isRequired,
-  dateTime: PropTypes.shape(
-    null,
-  ).isRequired,
+  dateTime: PropTypes.shape(null).isRequired,
   dateDiff: PropTypes.number.isRequired,
   currentReminder: PropTypes.bool,
 };
