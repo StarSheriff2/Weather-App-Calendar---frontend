@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  Formik, Field, Form, ErrorMessage,
-} from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { register } from '../slices/auth';
@@ -32,18 +30,16 @@ const Register = () => {
       .test(
         'len',
         'The name must be between 3 and 20 characters.',
-        (val) => val
-          && val.toString().length >= 3
-          && val.toString().length <= 20,
+        (val) =>
+          val && val.toString().length >= 3 && val.toString().length <= 20
       )
       .required('This field is required!'),
     email: Yup.string()
       .test(
         'len',
         'Email is too long (maximum is 65 characters).',
-        (val) => val
-          && val.toString().length >= 3
-          && val.toString().length <= 65,
+        (val) =>
+          val && val.toString().length >= 3 && val.toString().length <= 65
       )
       .email('This is not a valid email.')
       .required('This field is required!'),
@@ -51,9 +47,8 @@ const Register = () => {
       .test(
         'len',
         'The password must be between 6 and 40 characters.',
-        (val) => val
-          && val.toString().length >= 6
-          && val.toString().length <= 40,
+        (val) =>
+          val && val.toString().length >= 6 && val.toString().length <= 40
       )
       .required('This field is required!'),
     passwordConfirmation: Yup.string()
@@ -62,11 +57,17 @@ const Register = () => {
   });
 
   const handleRegister = (formValue) => {
-    const { name, email, password } = formValue;
-
+    const { name, email, password, passwordConfirmation } = formValue;
     setSuccessful(false);
 
-    dispatch(register({ name, email, password }))
+    dispatch(
+      register({
+        name,
+        email,
+        password,
+        passwordConfirmation,
+      })
+    )
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -127,7 +128,9 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="passwordConfirmation">Password Confirmation</label>
+                  <label htmlFor="passwordConfirmation">
+                    Password Confirmation
+                  </label>
                   <Field
                     name="passwordConfirmation"
                     type="password"
@@ -141,7 +144,9 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                  <button type="submit" className="btn btn-primary btn-block">
+                    Sign Up
+                  </button>
                 </div>
               </div>
             )}
@@ -151,15 +156,15 @@ const Register = () => {
 
       <p className="text-center mt-3">Already have an account?</p>
       <p className="text-center">
-        Sign in
-        {' '}
-        <Link to="/">here</Link>
+        Sign in <Link to="/">here</Link>
       </p>
 
       {message && (
         <div className="form-group">
           <div
-            className={successful ? 'alert alert-success' : 'alert alert-danger'}
+            className={
+              successful ? 'alert alert-success' : 'alert alert-danger'
+            }
             role="alert"
           >
             {message}

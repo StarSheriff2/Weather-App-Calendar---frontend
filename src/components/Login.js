@@ -3,9 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import {
-  Formik, Field, Form, ErrorMessage,
-} from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { login } from '../slices/auth';
@@ -68,7 +66,12 @@ const Login = ({ history }) => {
           <Form>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <Field name="email" id="email" type="text" className="form-control" />
+              <Field
+                name="email"
+                id="email"
+                type="text"
+                className="form-control"
+              />
               <ErrorMessage
                 name="email"
                 component="div"
@@ -78,7 +81,12 @@ const Login = ({ history }) => {
 
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <Field name="password" id="password" type="password" className="form-control" />
+              <Field
+                name="password"
+                id="password"
+                type="password"
+                className="form-control"
+              />
               <ErrorMessage
                 name="password"
                 component="div"
@@ -87,7 +95,11 @@ const Login = ({ history }) => {
             </div>
 
             <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+              <button
+                type="submit"
+                className="btn btn-primary btn-block"
+                disabled={loading}
+              >
                 {loading && (
                   <span className="spinner-border spinner-border-sm" />
                 )}
@@ -100,9 +112,7 @@ const Login = ({ history }) => {
 
       <p className="text-center">Don&apos;t have an account?</p>
       <p className="text-center">
-        Sign up
-        {' '}
-        <Link to="/register">here</Link>
+        Sign up <Link to="/register">here</Link>
       </p>
 
       {message && (

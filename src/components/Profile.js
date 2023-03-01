@@ -13,20 +13,14 @@ const Profile = () => {
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.name}</strong>
-          {' '}
-          Profile
+          <strong>{currentUser.name}</strong> Profile
         </h3>
       </header>
       <p>
-        <strong>Name:</strong>
-        {' '}
-        {currentUser.name}
+        <strong>Name:</strong> {currentUser.name}
       </p>
       <p>
-        <strong>Email:</strong>
-        {' '}
-        {currentUser.email}
+        <strong>Email:</strong> {currentUser.email}
       </p>
     </div>
   );

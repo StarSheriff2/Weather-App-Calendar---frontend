@@ -11,15 +11,16 @@ export const fetchReminders = createAsyncThunk(
       const response = await weatherAppCalendarApi.getReminders();
       return response.data;
     } catch (error) {
-      const message = (error.response
-          && error.response.data
-          && error.response.data.message)
-        || error.message
-        || error.toString();
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
       thunkAPI.dispatch(setMessage(message));
       return thunkAPI.rejectWithValue();
     }
-  },
+  }
 );
 
 export const newReminder = createAsyncThunk(
@@ -30,15 +31,16 @@ export const newReminder = createAsyncThunk(
       thunkAPI.dispatch(fetchReminders());
       return response.data;
     } catch (error) {
-      const message = (error.response
-          && error.response.data
-          && error.response.data.message)
-        || error.message
-        || error.toString();
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
       thunkAPI.dispatch(setMessage(message));
       return thunkAPI.rejectWithValue();
     }
-  },
+  }
 );
 
 const initialState = {
@@ -75,18 +77,16 @@ const remindersSlice = createSlice({
         }
       });
 
-      const remindersArr = Object.keys(reminders).map((year) => (
-        {
-          months: Object.keys(reminders[year]).map((month) => ({
-            id: parseInt(month, 10),
-            dates: Object.keys(reminders[year][month]).map((date) => ({
-              id: date,
-              reminders: reminders[year][month][date],
-            })),
+      const remindersArr = Object.keys(reminders).map((year) => ({
+        months: Object.keys(reminders[year]).map((month) => ({
+          id: parseInt(month, 10),
+          dates: Object.keys(reminders[year][month]).map((date) => ({
+            id: date,
+            reminders: reminders[year][month][date],
           })),
-          id: parseInt(year, 10),
-        }
-      ));
+        })),
+        id: parseInt(year, 10),
+      }));
 
       state.status = 'fulfilled';
       state.entities = remindersArr;

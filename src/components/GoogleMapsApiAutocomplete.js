@@ -25,7 +25,11 @@ export default class GoogleMapsApiAutocomplete extends Component {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
-        this.props.form.setValues({ ...this.props.form.values, city: address, locationCoordinates: `${latLng.lat.toString()}, ${latLng.lng.toString()}` });
+        this.props.form.setValues({
+          ...this.props.form.values,
+          city: address,
+          locationCoordinates: `${latLng.lat.toString()}, ${latLng.lng.toString()}`,
+        });
       })
       .catch((error) => console.error(error));
   }
@@ -40,9 +44,7 @@ export default class GoogleMapsApiAutocomplete extends Component {
         onChange={this.handleChange}
         onSelect={this.handleSelect}
       >
-        {({
-          getInputProps, suggestions, getSuggestionItemProps, loading,
-        }) => (
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <input
               {...getInputProps({
@@ -86,9 +88,7 @@ GoogleMapsApiAutocomplete.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
   }).isRequired,
-  form: PropTypes.shape(
-    null,
-  ).isRequired,
+  form: PropTypes.shape(null).isRequired,
 
   placeholder: PropTypes.string.isRequired,
 };
