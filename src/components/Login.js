@@ -101,7 +101,9 @@ const Login = ({ history }) => {
                 disabled={loading}
               >
                 {loading && (
-                  <span className="spinner-border spinner-border-sm" />
+                  <>
+                    <span className="spinner-border spinner-border-sm" />{' '}
+                  </>
                 )}
                 <span>Login</span>
               </button>

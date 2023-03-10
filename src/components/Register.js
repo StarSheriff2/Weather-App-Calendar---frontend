@@ -10,6 +10,7 @@ import { clearMessage } from '../slices/message';
 
 const Register = () => {
   const [successful, setSuccessful] = useState(false);
+  const [signingUp, setSigningUp] = useState(false);
 
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const Register = () => {
   const handleRegister = (formValue) => {
     const { name, email, password, passwordConfirmation } = formValue;
     setSuccessful(false);
+    setSigningUp(true);
 
     dispatch(
       register({
@@ -71,9 +73,11 @@ const Register = () => {
       .unwrap()
       .then(() => {
         setSuccessful(true);
+        setSigningUp(false);
       })
       .catch(() => {
         setSuccessful(false);
+        setSigningUp(false);
       });
   };
 
@@ -144,7 +148,16 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block">
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-block"
+                    disabled={signingUp}
+                  >
+                    {signingUp && (
+                      <>
+                        <span className="spinner-border spinner-border-sm" />{' '}
+                      </>
+                    )}
                     Sign Up
                   </button>
                 </div>
