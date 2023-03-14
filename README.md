@@ -135,17 +135,17 @@ To get a local copy up and running, follow these simple example steps.
       - Geolocation API
       - Maps JavaScript API
       - Places API
-    - Create an **.env.development** file in your root folder
-    - Create a env variable to store your Google api key called ***REACT_APP_GOOGLE_API_KEY***=\<your key here\> inside your .env file
+    - Create an **.env.development** file in your root folder from the .env.example file
+    - Add your Google api key to ***REACT_APP_GOOGLE_API_KEY***=\<your key here\> inside your env file
     - Paste your key where it says "your key here"
 
 2. You will also need an [Open Weather Map API](https://openweathermap.org/api)
     - Go to [their website](https://openweathermap.org/api) and sign up for an account to get an API Key
-    - Create a env variable to store your Weather App Map api key called ***REACT_APP_OPEN_WEATHER_API_KEY***=\<your key here\> inside your .env file
+    - Add your Weather App Map api key to ***REACT_APP_OPEN_WEATHER_API_KEY***=\<your key here\> inside your .env file
     - Paste your key where it says "your key here"
 
 3. Finally, you will also need to create a variable to store the development address:
-    - Just paste this into your .env.development file:
+    - Add the API address:
     <code>REACT_APP_WEATHER_APP_CALENDAR_API=http://127.0.0.1:3001/</code>
 
       - Your .env.development file should look something like this:
