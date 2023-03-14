@@ -3,18 +3,18 @@
 </div>
 
 <div align="center">
-  <img src="https://img.shields.io/badge/React-purple">
-  <img src="https://img.shields.io/badge/Redux-violet">
-  <img src="https://img.shields.io/badge/Bootstrap-darkblue">
-  <img src="https://img.shields.io/badge/GoogleMapsApi-blue">
-  <img src="https://img.shields.io/badge/HTML-red">
-  <img src="https://img.shields.io/badge/JavaScript-yellow">
-  <img src="https://img.shields.io/badge/CSS-blue">
-  <img src="https://img.shields.io/badge/Jest-green">
+  <img src="https://img.shields.io/badge/React-purple?logo=react">
+  <img src="https://img.shields.io/badge/Redux-violet?logo=redux">
+  <img src="https://img.shields.io/badge/Bootstrap-darkblue?logo=bootstrap&logoColor=white">
+  <img src="https://img.shields.io/badge/GoogleMapsApi-blue?logo=googlemaps&logoColor=white">
+  <img src="https://img.shields.io/badge/HTML-red?logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/JavaScript-yellow?logo=javascript&logoColor=white">
+  <img src="https://img.shields.io/badge/CSS-blue?logo=CSS3&logoColor=white">
+  <img src="https://img.shields.io/badge/Jest-green?logo=jest&logoColor=white">
   <img src="https://img.shields.io/badge/MSW-yellow">
-  <img src="https://img.shields.io/badge/JWT-darkgreen">
+  <img src="https://img.shields.io/badge/JWT-000000?logo=Json%20Web%20Tokens">
   <img src="https://img.shields.io/badge/Formik-orange">
-  <img src="https://img.shields.io/badge/OpenWeatherApi-beige">
+  <img src="https://img.shields.io/badge/Open%20Weather%20Api-beige?logo=open%20weather">
 </div>
 
 <br>
@@ -94,9 +94,11 @@ Coming soon...
 
 ### About the API
 
-- This app consumes a Ruby on Rails API.
-- Here's the [link to the backend API](https://weather-app-calendar-api.herokuapp.com/).
+- This app consumes a Ruby on Rails API deployed in Render.com.
+- Here's the [link to the backend API](https://weatherapp-api.onrender.com).
 - Here's [the repo](https://github.com/StarSheriff2/Weather-App-Calendar---backend).
+
+**Note:** The API is deployed under a free tier service in Render.com, so it might take a couple of minutes for the API to spin up from its idle state before it becomes responsive again.
 
 ## Getting Started
 
@@ -127,13 +129,13 @@ To get a local copy up and running, follow these simple example steps.
 1. To make this app work in local development you will need a Google Maps API key. You can get one here: https://console.cloud.google.com/
 
     Once you have your API key do the following:
-    - You will need to enable the following APIS:
+    - You will need to enable the following APIs:
       - Directions API
       - Geocoding API
       - Geolocation API
       - Maps JavaScript API
       - Places API
-    - Create an **.env** file in your root folder
+    - Create an **.env.development** file in your root folder
     - Create a env variable to store your Google api key called ***REACT_APP_GOOGLE_API_KEY***=\<your key here\> inside your .env file
     - Paste your key where it says "your key here"
 
@@ -143,10 +145,10 @@ To get a local copy up and running, follow these simple example steps.
     - Paste your key where it says "your key here"
 
 3. Finally, you will also need to create a variable to store the development address:
-    - Just paste this into your .env file:
+    - Just paste this into your .env.development file:
     <code>REACT_APP_WEATHER_APP_CALENDAR_API=http://127.0.0.1:3001/</code>
 
-      - Your .env file should look something like this:
+      - Your .env.development file should look something like this:
       ![env file screenshot](./.github/images/env_file_screenshot.png)
 
 ## Development
