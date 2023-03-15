@@ -35,6 +35,31 @@
 <img width="30%" alt="app screenshot mobile" src="./.github/images/reminders_page_menu_screenshot_mobile.png">
 </div>
 
+- [About](#about)
+  - [File Structure](#file-structure)
+  - [Features:](#features)
+  - [Live Demo](#live-demo)
+  - [Video Presentation](#video-presentation)
+  - [Built With](#built-with)
+  - [About the API](#about-the-api)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Get files](#get-files)
+  - [Install Dependencies](#install-dependencies)
+  - [Weather App Calendar API and Third-party APIs Env Files](#weather-app-calendar-api-and-third-party-apis-env-files)
+- [Development](#development)
+  - [Bundle project](#bundle-project)
+  - [Testing](#testing)
+  - [Linters](#linters)
+  - [All Available Scripts](#all-available-scripts)
+- [Usage](#usage)
+- [Author](#author)
+- [🤝 Contributing](#-contributing)
+- [🤝 Acknowledgements](#-acknowledgements)
+- [Show your support](#show-your-support)
+- [📝 License](#-license)
+
+
 ## About
 Weather Calendar App is a ***fully responsive*** web app that I built with ***create-react-app and redux toolkit***, that uses a Ruby on Rails REST API to make CRUD operations. The repo for the back-end is [here](https://github.com/StarSheriff2/Weather-App-Calendar---backend).
 
@@ -172,20 +197,22 @@ To run the linters included in this repository, go to the root directory of your
 <details>
  <summary>In the project directory, you can run:</summary>
 
-### `yarn start`
-
+<!-- omit from toc -->
+#### `yarn start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint warnings in the console.
 
-### `yarn test`
+<!-- omit from toc -->
+#### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+<!-- omit from toc -->
+#### `yarn build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -195,7 +222,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+<!-- omit from toc -->
+#### `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
