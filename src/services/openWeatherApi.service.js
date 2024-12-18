@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 
-const ONE_CALL_API_URL = 'https://api.openweathermap.org/data/2.5/onecall';
+const ONE_CALL_API_URL = 'https://api.openweathermap.org/data/3.0/onecall';
 const CURRENT_WEATHER_API_URL =
   'https://api.openweathermap.org/data/2.5/weather';
 
