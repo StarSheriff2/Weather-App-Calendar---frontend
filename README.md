@@ -145,7 +145,7 @@ To get a local copy up and running, follow these simple example steps.
 
 ### Install Dependencies
 1. Go to the root directory of the project
-2. In your command line, while in the root dir, type `npm install`. It will install all necessary dependencies in your project files
+2. In your command line, while in the root dir, type `yarn install`. It will install all necessary dependencies in your project files
 3. Now type `yarn start` or `npm run start`. It will load the project in your default browser.<br><br>
 **Note:<br>_This command will not stop on its own. If you change something in your project files, it will recompile and reload the page in your browser. To exit, hit "ctrl + c"_**
 
